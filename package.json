@@ -1,0 +1,26 @@
+{
+  "name": "undevice",
+  "version": "0.0.0",
+  "description": "Runtime-agnostic user-agent device detector",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.17.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teplostanski/undevice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/teplostanski/undevice/issues"
+  },
+  "homepage": "https://github.com/teplostanski/undevice#readme",
+  "keywords": [
+    "user-agent",
+    "device",
+    "device-detection",
+    "runtime-agnostic"
+  ]
+}
