@@ -1,4 +1,6 @@
+import type { BrowserFlags } from './browser.js'
 import type { DeviceKindFlags } from './device-kind.js'
+import type { OsFlags } from './os.js'
 
 export type DeviceHeaders = Readonly<Record<string, string | undefined>>
 
@@ -7,18 +9,7 @@ export type DetectDeviceInput = Readonly<{
   headers?: DeviceHeaders
 }>
 
-type PlatformFlags = Readonly<{
-  isIos: boolean
-  isAndroid: boolean
-  isWindows: boolean
-  isLinux: boolean
-  isMacOS: boolean
-  isApple: boolean
-  isSafari: boolean
-  isFirefox: boolean
-  isEdge: boolean
-  isChrome: boolean
-  isSamsung: boolean
+type PlatformFlags = OsFlags & BrowserFlags & Readonly<{
   isCrawler: boolean
 }>
 
