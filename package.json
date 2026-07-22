@@ -54,5 +54,8 @@
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "isbot": "^5.2.1"
   }
 }
