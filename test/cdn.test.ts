@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { detectDevice } from '../src/index.js'
+import {
+  CloudflareDeviceType,
+  CloudflareHeader,
+  CloudFrontHeader,
+  detectDevice,
+} from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 describe('CDN header precedence', () => {
@@ -7,7 +12,7 @@ describe('CDN header precedence', () => {
     const flags = detectDevice({
       userAgent: userAgents.desktopChrome,
       headers: {
-        'CF-Device-Type': 'mobile',
+        [CloudflareHeader.DeviceType]: CloudflareDeviceType.Mobile,
       },
     })
 
@@ -25,7 +30,7 @@ describe('CDN header precedence', () => {
     const flags = detectDevice({
       userAgent: userAgents.iphone,
       headers: {
-        'cf-device-type': 'desktop',
+        'CF-Device-Type': CloudflareDeviceType.Desktop,
       },
     })
 
@@ -40,7 +45,7 @@ describe('CDN header precedence', () => {
     const flags = detectDevice({
       userAgent: userAgents.iphone,
       headers: {
-        'cf-device-type': 'smarttv',
+        [CloudflareHeader.DeviceType]: 'smarttv',
       },
     })
 
@@ -51,8 +56,8 @@ describe('CDN header precedence', () => {
     const flags = detectDevice({
       userAgent: userAgents.cloudfront,
       headers: {
-        'CloudFront-Is-Mobile-Viewer': 'true',
-        'CloudFront-Is-IOS-Viewer': 'true',
+        [CloudFrontHeader.IsMobileViewer]: 'true',
+        [CloudFrontHeader.IsIosViewer]: 'true',
       },
     })
 
@@ -70,8 +75,8 @@ describe('CDN header precedence', () => {
     const flags = detectDevice({
       userAgent: userAgents.cloudfront,
       headers: {
-        'CloudFront-Is-Mobile-Viewer': 'true',
-        'CloudFront-Is-Tablet-Viewer': 'true',
+        [CloudFrontHeader.IsMobileViewer]: 'true',
+        [CloudFrontHeader.IsTabletViewer]: 'true',
       },
     })
 
@@ -94,7 +99,7 @@ describe('CDN header precedence', () => {
     const flags = detectDevice({
       userAgent: userAgents.desktopChrome,
       headers: {
-        'CloudFront-Is-Mobile-Viewer': 'true',
+        [CloudFrontHeader.IsMobileViewer]: 'true',
       },
     })
 
@@ -105,7 +110,7 @@ describe('CDN header precedence', () => {
   it('prefers empty-UA Cloudflare hints over unknown', () => {
     const flags = detectDevice({
       headers: {
-        'cf-device-type': 'tablet',
+        [CloudflareHeader.DeviceType]: CloudflareDeviceType.Tablet,
       },
     })
 

@@ -1,4 +1,6 @@
-export type DeviceKind = 'mobile' | 'tablet' | 'desktop' | 'unknown'
+import { DeviceKind } from './constants.js'
+
+export type { DeviceKind } from './constants.js'
 
 export type DeviceKindFlags
   = | Readonly<{
@@ -34,8 +36,8 @@ export type DeviceKindFlags
     isDesktopOrTablet: false
   }>
 
-const DEVICE_KIND_FLAGS = {
-  mobile: {
+const DeviceKindFlagsByKind = {
+  [DeviceKind.Mobile]: {
     isMobile: true,
     isTablet: false,
     isDesktop: false,
@@ -43,7 +45,7 @@ const DEVICE_KIND_FLAGS = {
     isMobileOrTablet: true,
     isDesktopOrTablet: false,
   },
-  tablet: {
+  [DeviceKind.Tablet]: {
     isMobile: false,
     isTablet: true,
     isDesktop: false,
@@ -51,7 +53,7 @@ const DEVICE_KIND_FLAGS = {
     isMobileOrTablet: true,
     isDesktopOrTablet: true,
   },
-  desktop: {
+  [DeviceKind.Desktop]: {
     isMobile: false,
     isTablet: false,
     isDesktop: true,
@@ -59,7 +61,7 @@ const DEVICE_KIND_FLAGS = {
     isMobileOrTablet: false,
     isDesktopOrTablet: true,
   },
-  unknown: {
+  [DeviceKind.Unknown]: {
     isMobile: false,
     isTablet: false,
     isDesktop: false,
@@ -84,24 +86,23 @@ const isDesktopUserAgent = (userAgent: string): boolean =>
 
 export const detectDeviceKind = (userAgent: string): DeviceKind => {
   if (userAgent.length === 0) {
-    return 'unknown'
+    return DeviceKind.Unknown
   }
 
-  // iPad UAs often include "Mobile"; check tablets before phones.
   if (isTabletUserAgent(userAgent)) {
-    return 'tablet'
+    return DeviceKind.Tablet
   }
 
   if (isMobileUserAgent(userAgent)) {
-    return 'mobile'
+    return DeviceKind.Mobile
   }
 
   if (isDesktopUserAgent(userAgent)) {
-    return 'desktop'
+    return DeviceKind.Desktop
   }
 
-  return 'unknown'
+  return DeviceKind.Unknown
 }
 
 export const toDeviceKindFlags = (kind: DeviceKind): DeviceKindFlags =>
-  DEVICE_KIND_FLAGS[kind]
+  DeviceKindFlagsByKind[kind]
