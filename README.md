@@ -4,6 +4,7 @@
 [![downloads][npm-downloads-src]][npm-downloads-href]
 [![size][npm-size-src]][npm-size-href]
 [![license][npm-license-src]][npm-license-href]
+[![codecov][codecov-src]][codecov-href]
 
 Runtime-agnostic device detection from User-Agent and CDN headers.
 
@@ -144,3 +145,5 @@ Feature set inspired by [`@nuxtjs/device`](https://github.com/nuxt-modules/devic
 [npm-size-href]: https://npmx.dev/package/undevice
 [npm-license-src]: https://npmx.dev/api/registry/badge/license/undevice
 [npm-license-href]: https://npmx.dev/package/undevice
+[codecov-src]: https://codecov.io/gh/teplostanski/undevice/graph/badge.svg
+[codecov-href]: https://codecov.io/gh/teplostanski/undevice
