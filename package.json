@@ -1,8 +1,7 @@
 {
   "name": "undevice",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Runtime-agnostic user-agent device detector",
-  "private": true,
   "type": "module",
   "sideEffects": false,
   "license": "MIT",
@@ -26,6 +25,10 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "types": "./dist/index.d.mts",
   "exports": {
     ".": {
