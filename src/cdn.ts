@@ -1,78 +1,94 @@
-import type { DeviceKind } from './device-kind.js'
+import {
+  CloudflareDeviceType,
+  CloudflareHeader,
+  CloudFrontHeader,
+  CloudFrontUserAgent,
+  DeviceKind,
+} from './constants.js'
+import type { CloudflareDeviceType as CloudflareDeviceTypeValue, DeviceKind as DeviceKindType } from './constants.js'
 import type { OsFlags } from './os.js'
 
 export type CdnHints = Readonly<{
-  kind?: DeviceKind
+  kind?: DeviceKindType
   os?: Partial<OsFlags>
 }>
 
-const CLOUDFRONT_USER_AGENT = 'Amazon CloudFront'
+const CloudflareDeviceTypeToKind = {
+  [CloudflareDeviceType.Mobile]: DeviceKind.Mobile,
+  [CloudflareDeviceType.Tablet]: DeviceKind.Tablet,
+  [CloudflareDeviceType.Desktop]: DeviceKind.Desktop,
+} as const satisfies Record<CloudflareDeviceTypeValue, DeviceKindType>
+
+const CloudFrontDeviceKindByHeader = {
+  [CloudFrontHeader.IsMobileViewer]: DeviceKind.Mobile,
+  [CloudFrontHeader.IsTabletViewer]: DeviceKind.Tablet,
+  [CloudFrontHeader.IsDesktopViewer]: DeviceKind.Desktop,
+} as const satisfies Record<
+  typeof CloudFrontHeader.IsMobileViewer
+  | typeof CloudFrontHeader.IsTabletViewer
+  | typeof CloudFrontHeader.IsDesktopViewer,
+  DeviceKindType
+>
+
+const CloudFrontOsByHeader = {
+  [CloudFrontHeader.IsIosViewer]: {
+    isIos: true,
+    isApple: true,
+  },
+  [CloudFrontHeader.IsAndroidViewer]: {
+    isAndroid: true,
+  },
+} as const satisfies Record<
+  typeof CloudFrontHeader.IsIosViewer | typeof CloudFrontHeader.IsAndroidViewer,
+  Partial<OsFlags>
+>
 
 const isTrue = (value: string | undefined): boolean =>
   value === 'true'
 
-const kindFromCloudflare = (deviceType: string): DeviceKind | undefined => {
-  switch (deviceType.toLowerCase()) {
-    case 'mobile': {
-      return 'mobile'
-    }
-    case 'tablet': {
-      return 'tablet'
-    }
-    case 'desktop': {
-      return 'desktop'
-    }
-    default: {
-      return undefined
-    }
-  }
+const isCloudflareDeviceType = (value: string): value is CloudflareDeviceTypeValue =>
+  Object.hasOwn(CloudflareDeviceTypeToKind, value)
+
+const kindFromCloudflare = (deviceType: string): DeviceKindType | undefined => {
+  const normalized = deviceType.toLowerCase()
+  return isCloudflareDeviceType(normalized)
+    ? CloudflareDeviceTypeToKind[normalized]
+    : undefined
 }
 
 const kindFromCloudFront = (
   headers: Readonly<Record<string, string>>,
-): DeviceKind | undefined => {
-  // Match nuxt-device override order: mobile → tablet → desktop.
-  let kind: DeviceKind | undefined
+): DeviceKindType | undefined => {
+  const matchedKinds = (
+    Object.entries(CloudFrontDeviceKindByHeader) as Array<[string, DeviceKindType]>
+  )
+    .filter(([header]) => isTrue(headers[header]))
+    .map(([, kind]) => kind)
 
-  if (isTrue(headers['cloudfront-is-mobile-viewer'])) {
-    kind = 'mobile'
-  }
-
-  if (isTrue(headers['cloudfront-is-tablet-viewer'])) {
-    kind = 'tablet'
-  }
-
-  if (isTrue(headers['cloudfront-is-desktop-viewer'])) {
-    kind = 'desktop'
-  }
-
-  return kind
+  return matchedKinds.at(-1)
 }
 
 const osFromCloudFront = (
   headers: Readonly<Record<string, string>>,
-): Partial<OsFlags> => {
-  const ios = isTrue(headers['cloudfront-is-ios-viewer'])
-  const android = isTrue(headers['cloudfront-is-android-viewer'])
-
-  return {
-    ...(ios ? { isIos: true, isApple: true } : {}),
-    ...(android ? { isAndroid: true } : {}),
-  }
-}
+): Partial<OsFlags> =>
+  Object.fromEntries(
+    (Object.entries(CloudFrontOsByHeader) as Array<[string, Partial<OsFlags>]>)
+      .filter(([header]) => isTrue(headers[header]))
+      .flatMap(([, flags]) => Object.entries(flags)),
+  )
 
 export const resolveCdnHints = (
   userAgent: string,
   headers: Readonly<Record<string, string>>,
 ): CdnHints => {
-  if (userAgent === CLOUDFRONT_USER_AGENT) {
+  if (userAgent === CloudFrontUserAgent.AmazonCloudFront) {
     return {
-      kind: kindFromCloudFront(headers) ?? 'unknown',
+      kind: kindFromCloudFront(headers) ?? DeviceKind.Unknown,
       os: osFromCloudFront(headers),
     }
   }
 
-  const cloudflareType = headers['cf-device-type']
+  const cloudflareType = headers[CloudflareHeader.DeviceType]
   if (cloudflareType !== undefined) {
     const kind = kindFromCloudflare(cloudflareType)
     if (kind !== undefined) {

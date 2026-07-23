@@ -1,4 +1,5 @@
 export { detectDevice } from './detect-device.js'
+export * from './constants.js'
 
 export type {
   DetectDeviceInput,
@@ -6,5 +7,5 @@ export type {
   DeviceHeaders,
 } from './types.js'
 
-export type { DeviceKind, DeviceKindFlags } from './device-kind.js'
+export type { DeviceKindFlags } from './device-kind.js'
 export type { NormalizedInput } from './normalize.js'
