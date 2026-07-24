@@ -9,9 +9,6 @@ Runtime-agnostic device detection from User-Agent and CDN headers.
 
 Works on Node.js, browsers, and edge runtimes.
 
-> [!IMPORTANT]
-> Package is not published yet. API may change before `0.1.0`.
-
 ## Install
 
 ```bash
