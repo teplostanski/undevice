@@ -35,3 +35,15 @@ jobs:
       - run: pnpm test
       - run: pnpm build
       - run: pnpm publint
+
+      - name: Coverage
+        if: matrix.node == 24
+        run: pnpm test:coverage
+
+      - name: Upload coverage to Codecov
+        if: matrix.node == 24
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          fail_ci_if_error: true
