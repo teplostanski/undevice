@@ -9,7 +9,11 @@ export const userAgents = {
   desktopFirefox: 'Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0',
   desktopSafari: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
   desktopEdge: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
+  // No Mozilla/ prefix: exercises non-Mozilla desktop branches.
+  desktopWindowsNt: 'Windows NT 10.0; Win64; x64',
+  desktopLinux: 'Linux x86_64',
   samsungBrowser: 'Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/111.0.5563.116 Mobile Safari/537.36',
+  playbook: 'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+',
   googlebot: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
   cloudfront: CloudFrontUserAgent.AmazonCloudFront,
   garbage: 'totally-not-a-browser',

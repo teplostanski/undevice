@@ -11,11 +11,11 @@ export const detectDevice = (input: DetectDeviceInput = {}): DeviceFlags => {
   const cdn = resolveCdnHints(userAgent, headers)
   const kind = cdn.kind ?? detectDeviceKind(userAgent)
 
-  return {
+  return Object.freeze({
     ...toDeviceKindFlags(kind),
     ...detectOsFlags(userAgent),
     ...cdn.os,
     ...detectBrowserFlags(userAgent),
     isCrawler: isCrawlerUserAgent(userAgent),
-  }
+  })
 }

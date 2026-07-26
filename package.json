@@ -43,6 +43,7 @@
     "lint:fix": "eslint . --fix",
     "prepack": "pnpm build",
     "publint": "publint",
+    "smoke": "node scripts/smoke.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit"
