@@ -8,4 +8,3 @@ export type {
 } from './types.js'
 
 export type { DeviceKindFlags } from './device-kind.js'
-export type { NormalizedInput } from './normalize.js'
