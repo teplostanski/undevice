@@ -82,7 +82,8 @@ const isMobileUserAgent = (userAgent: string): boolean =>
 const isDesktopUserAgent = (userAgent: string): boolean =>
   /Mozilla\//i.test(userAgent)
   || /Windows NT|Macintosh|Mac OS X|X11|CrOS|WOW64/i.test(userAgent)
-  || (/Linux/i.test(userAgent) && !/Android/i.test(userAgent))
+  // Android never reaches this check: tablet/mobile match first.
+  || /Linux/i.test(userAgent)
 
 export const detectDeviceKind = (userAgent: string): DeviceKind => {
   if (userAgent.length === 0) {

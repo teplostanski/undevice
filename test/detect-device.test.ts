@@ -51,6 +51,37 @@ describe('detectDevice', () => {
     expect(flags.isDesktopOrTablet).toBe(true)
   })
 
+  it('detects Windows NT without Mozilla as desktop', () => {
+    expectExclusiveKind(
+      detectDevice({ userAgent: userAgents.desktopWindowsNt }),
+      'isDesktop',
+    )
+  })
+
+  it('detects Linux without Mozilla as desktop', () => {
+    expectExclusiveKind(
+      detectDevice({ userAgent: userAgents.desktopLinux }),
+      'isDesktop',
+    )
+  })
+
+  it('detects PlayBook as tablet', () => {
+    expectExclusiveKind(
+      detectDevice({ userAgent: userAgents.playbook }),
+      'isTablet',
+    )
+  })
+
+  it('returns a frozen result object', () => {
+    const flags = detectDevice({ userAgent: userAgents.iphone })
+
+    expect(Object.isFrozen(flags)).toBe(true)
+    expect(() => {
+      // @ts-expect-error runtime freeze should reject mutation
+      flags.isMobile = false
+    }).toThrow()
+  })
+
   it('treats an empty user agent as unknown', () => {
     expectExclusiveKind(detectDevice({}), 'isUnknown')
     expectExclusiveKind(detectDevice({ userAgent: '   ' }), 'isUnknown')
