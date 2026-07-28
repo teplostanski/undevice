@@ -2,9 +2,9 @@
 
 [![version][npm-version-src]][npm-version-href]
 [![downloads][npm-downloads-src]][npm-downloads-href]
-[![size][npm-size-src]][npm-size-href]
 [![license][npm-license-src]][npm-license-href]
 [![codecov][codecov-src]][codecov-href]
+[![size][npm-size-src]][npm-size-href]
 
 Runtime-agnostic device detection from User-Agent and CDN headers.
 
@@ -185,9 +185,9 @@ Feature set inspired by [`@nuxtjs/device`](https://github.com/nuxt-modules/devic
 [npm-version-href]: https://npmx.dev/package/undevice
 [npm-downloads-src]: https://npmx.dev/api/registry/badge/downloads/undevice
 [npm-downloads-href]: https://npmx.dev/package/undevice
-[npm-size-src]: https://npmx.dev/api/registry/badge/size/undevice
-[npm-size-href]: https://npmx.dev/package/undevice
+[npm-size-src]: https://img.shields.io/bundlephobia/minzip/undevice?style=flat&label=size&labelColor=0a0a0a&color=a855f7
+[npm-size-href]: https://bundlephobia.com/package/undevice
 [npm-license-src]: https://npmx.dev/api/registry/badge/license/undevice
 [npm-license-href]: https://npmx.dev/package/undevice
-[codecov-src]: https://codecov.io/gh/teplostanski/undevice/graph/badge.svg
+[codecov-src]: https://img.shields.io/codecov/c/github/teplostanski/undevice?style=flat&label=coverage&labelColor=0a0a0a
 [codecov-href]: https://codecov.io/gh/teplostanski/undevice
