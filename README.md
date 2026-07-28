@@ -33,7 +33,7 @@ bun install undevice
 ### `detectDevice`
 
 ```ts
-detectDevice(input?: DetectDeviceInput): DeviceFlags
+declare function detectDevice(input?: DetectDeviceInput): DeviceFlags
 ```
 
 Pure function: does not read globals or mutate input. Default `input` is `{}`.
@@ -48,7 +48,10 @@ type DetectDeviceInput = Readonly<{
   headers?: DeviceHeaders
 }>
 
-type DeviceFlags = /* boolean flags only; see Flags */
+// Boolean flags only (see Flags); does not include userAgent
+type DeviceFlags = DeviceKindFlags & OsFlags & BrowserFlags & {
+  isCrawler: boolean
+}
 ```
 
 - `DeviceHeaders` keys are matched case-insensitively.
