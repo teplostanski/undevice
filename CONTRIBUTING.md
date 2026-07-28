@@ -7,7 +7,7 @@
 - Install dependencies using `pnpm install` (enables Husky git hooks via `prepare`)
 - Run interactive tests using `pnpm dev`
 - Run checks using `pnpm lint && pnpm typecheck && pnpm test && pnpm build`
-- Pre-commit runs `pnpm lint` automatically
+- Pre-commit runs `eslint .` automatically (via Husky; skips pnpm TTY prompts)
 
 ## Pull requests
 
