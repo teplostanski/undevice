@@ -10,7 +10,7 @@ Runtime-agnostic device detection from User-Agent and CDN headers.
 
 Works on Node.js, browsers, and edge runtimes.
 
-*Not affiliated with the [UnJS](https://unjs.io) organization.*
+_Not affiliated with the [UnJS](https://unjs.io) organization._
 
 ## Install
 
@@ -28,6 +28,61 @@ yarn add undevice
 bun install undevice
 ```
 
+## API
+
+### `detectDevice`
+
+```ts
+declare function detectDevice(input?: DetectDeviceInput): DeviceFlags
+```
+
+Pure function: does not read globals or mutate input. Default `input` is `{}`.
+
+### Types
+
+```ts
+type DeviceHeaders = Readonly<Record<string, string | undefined>>
+
+type DetectDeviceInput = Readonly<{
+  userAgent?: string
+  headers?: DeviceHeaders
+}>
+
+// Boolean flags only (see Flags); does not include userAgent
+type DeviceFlags = DeviceKindFlags & OsFlags & BrowserFlags & {
+  isCrawler: boolean
+}
+```
+
+- `DeviceHeaders` keys are matched case-insensitively.
+- `DeviceFlags` does not echo the input `userAgent`.
+
+### Invariants
+
+Exactly one device kind flag is `true`:
+
+- `isMobile` | `isTablet` | `isDesktop` | `isUnknown`
+
+`isMobileOrTablet` and `isDesktopOrTablet` are derived from that kind.
+
+Empty `userAgent` without a recognized CDN device hint yields `isUnknown: true`. Choosing a UI fallback is the caller's responsibility.
+
+User-Agent matching is heuristic, not a security boundary.
+
+### Signal precedence
+
+1. CloudFront viewer headers — only when `userAgent` is `Amazon CloudFront`
+2. Cloudflare `cf-device-type`
+3. User-Agent string
+
+### Exports
+
+| Kind      | Name                                                                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------------------ |
+| Function  | `detectDevice`                                                                                                     |
+| Types     | `DetectDeviceInput`, `DeviceHeaders`, `DeviceFlags`, `DeviceKindFlags`                                             |
+| Constants | `DeviceKind`, `BrowserName`, `CloudflareHeader`, `CloudflareDeviceType`, `CloudFrontHeader`, `CloudFrontUserAgent` |
+
 ## Usage
 
 ```js
@@ -42,8 +97,6 @@ device.isIos; // true
 device.isSafari; // true
 ```
 
-`detectDevice` is a pure function. Pass `userAgent` and optional `headers` — it does not read globals.
-
 ```js
 const device = detectDevice({
   userAgent: request.headers.get("user-agent") || undefined,
@@ -51,9 +104,11 @@ const device = detectDevice({
 });
 ```
 
+For SSR, pass the same input on server and client.
+
 ## Flags
 
-Exactly one device kind flag is `true`:
+Device kind:
 
 - `isMobile`
 - `isTablet`
@@ -78,12 +133,6 @@ Other:
 - `isCrawler`
 
 ## CDN Headers
-
-Detection order:
-
-1. CloudFront viewer headers when `userAgent` is `Amazon CloudFront`
-2. Cloudflare `cf-device-type`
-3. User-Agent string
 
 ```js
 import { CloudflareHeader, CloudflareDeviceType, detectDevice } from "undevice";
@@ -123,13 +172,6 @@ import {
 DeviceKind.Mobile; // "mobile"
 CloudflareHeader.DeviceType; // "cf-device-type"
 ```
-
-## Notes
-
-- Empty User-Agent without CDN hints → `isUnknown: true`
-- Header names are case-insensitive
-- For SSR, pass the same input on server and client
-- User-Agent detection is heuristic, not a security check
 
 Feature set inspired by [`@nuxtjs/device`](https://github.com/nuxt-modules/device).
 
