@@ -4,9 +4,10 @@
 
 - Clone this repository
 - Install the latest LTS version of [Node.js](https://nodejs.org/en/)
-- Install dependencies using `pnpm install`
+- Install dependencies using `pnpm install` (enables Husky git hooks via `prepare`)
 - Run interactive tests using `pnpm dev`
 - Run checks using `pnpm lint && pnpm typecheck && pnpm test && pnpm build`
+- Pre-commit runs `pnpm lint` automatically
 
 ## Pull requests
 

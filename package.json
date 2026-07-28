@@ -46,7 +46,8 @@
     "smoke": "node scripts/smoke.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
   },
   "keywords": [
     "user-agent",
@@ -59,6 +60,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^10.8.0",
     "eslint-config-unjs": "^0.6.2",
+    "husky": "^9.1.7",
     "publint": "^0.3.22",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "unbuild": "^3.6.1",
