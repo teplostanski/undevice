@@ -74,7 +74,7 @@ const DeviceKindFlagsByKind = {
 const isTabletUserAgent = (userAgent: string): boolean =>
   /iPad/i.test(userAgent)
   || /Tablet|PlayBook|Silk/i.test(userAgent)
-  || (/Android/i.test(userAgent) && !/Mobile/i.test(userAgent))
+  || (/Android/i.test(userAgent) && !/Mobile|Opera Mini/i.test(userAgent))
 
 const isMobileUserAgent = (userAgent: string): boolean =>
   /iPhone|iPod|Android|Mobile|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(userAgent)
@@ -82,7 +82,6 @@ const isMobileUserAgent = (userAgent: string): boolean =>
 const isDesktopUserAgent = (userAgent: string): boolean =>
   /Mozilla\//i.test(userAgent)
   || /Windows NT|Macintosh|Mac OS X|X11|CrOS|WOW64/i.test(userAgent)
-  // Android never reaches this check: tablet/mobile match first.
   || /Linux/i.test(userAgent)
 
 export const detectDeviceKind = (userAgent: string): DeviceKind => {
