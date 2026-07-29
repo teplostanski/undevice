@@ -77,7 +77,7 @@ describe('detectDevice', () => {
 
     expect(Object.isFrozen(flags)).toBe(true)
     expect(() => {
-      // @ts-expect-error runtime freeze should reject mutation
+      // @ts-expect-error
       flags.isMobile = false
     }).toThrow()
   })
