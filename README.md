@@ -10,6 +10,8 @@ Runtime-agnostic device detection from User-Agent and CDN headers.
 
 Works on Node.js, browsers, and edge runtimes.
 
+*Not affiliated with the [UnJS](https://unjs.io) organization.*
+
 ## Install
 
 ```bash
