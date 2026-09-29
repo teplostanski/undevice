@@ -29,7 +29,7 @@ importers:
         version: 9.1.7
       publint:
         specifier: ^0.3.22
-        version: 0.3.22
+        version: 0.3.24
       typescript:
         specifier: npm:@typescript/typescript6@^6.0.2
         version: '@typescript/typescript6@6.0.2'
@@ -326,8 +326,8 @@ packages:
   '@oxc-project/types@0.139.0':
     resolution: {integrity: sha512-r9gHphtCs+1M7J0pw6Sn/hh/Wpa/iQrOOkrNAlVLF/gHq+/CJmHIWKKUUhdWjcD6CIa8idarspCsASiXCXvFUw==}
 
-  '@publint/pack@0.1.6':
-    resolution: {integrity: sha512-3uVNyGcVplhPZSLVyeIpL7+cIRn1YCSNHLG/rUIlBQMVH8YuN9++YF+5+UDIIO9RW98dujiUoTltO7RDB5bFJA==}
+  '@publint/pack@0.1.7':
+    resolution: {integrity: sha512-4EDEmvxWtgsCnnVeBvtFIFZtUhPPt1+bA9JrSwU4Sa//6oKtzCSlGGXYJr44OD9aGISymbieJ4mCKHUygUDU+g==}
     engines: {node: '>=18'}
 
   '@rolldown/binding-android-arm64@1.1.5':
@@ -1889,8 +1889,8 @@ packages:
     resolution: {integrity: sha512-X+vn9z8nOFZQlxOLmfJ0iKDdMD7jYTsTW12OAlCpdoE3Igik6L37pugIZi+N3usuyp5McfgKPWi12q3zvHLeGQ==}
     engines: {node: '>=20'}
 
-  publint@0.3.22:
-    resolution: {integrity: sha512-6Z/scsr5CA7APdwyF35EY88CqgDj1textWuY788DVTJYPCWVv/Wn9G6KmLnrVRnStgYcahqN4wCDLZGSbQJ69w==}
+  publint@0.3.24:
+    resolution: {integrity: sha512-9zS56KrKBoqi5Qt8h92uMP8TTM9AYZSgnmCo4u2priMqkOZvQnTsziZ2p5LJ2ywbYkAjoCDp2jda9u4cgFefIw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1993,6 +1993,10 @@ packages:
 
   tinyexec@1.2.4:
     resolution: {integrity: sha512-SHf/r48b7vOrjve9PxJo3MN5v5yuyjHvdUcrQffT3WXMUfnGmHDVbC4k3sHJaJTgZCwpUplIaAo5ANtMyp3YHg==}
+    engines: {node: '>=18'}
+
+  tinyexec@1.3.0:
+    resolution: {integrity: sha512-QKAl9m8gWWGHV8jZcPeym6j+XULi6tOf1mT83WYJ4Lk2ytW/uwAWkrP0uFsdoYMdueVJ0qs26wZ+23xeB4ibNQ==}
     engines: {node: '>=18'}
 
   tinyglobby@0.2.17:
@@ -2397,9 +2401,9 @@ snapshots:
 
   '@oxc-project/types@0.139.0': {}
 
-  '@publint/pack@0.1.6':
+  '@publint/pack@0.1.7':
     dependencies:
-      tinyexec: 1.2.4
+      tinyexec: 1.3.0
 
   '@rolldown/binding-android-arm64@1.1.5':
     optional: true
@@ -3985,9 +3989,9 @@ snapshots:
 
   pretty-bytes@7.1.1: {}
 
-  publint@0.3.22:
+  publint@0.3.24:
     dependencies:
-      '@publint/pack': 0.1.6
+      '@publint/pack': 0.1.7
       package-manager-detector: 1.8.0
       picocolors: 1.1.1
       sade: 1.8.1
@@ -4121,6 +4125,8 @@ snapshots:
   tinybench@2.9.0: {}
 
   tinyexec@1.2.4: {}
+
+  tinyexec@1.3.0: {}
 
   tinyglobby@0.2.17:
     dependencies:
