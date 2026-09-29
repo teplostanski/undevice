@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  CloudFrontHeader,
   CloudflareDeviceType,
   CloudflareHeader,
-  CloudFrontHeader,
   detectDevice,
 } from '../src/index.js'
 import { userAgents } from './fixtures.js'

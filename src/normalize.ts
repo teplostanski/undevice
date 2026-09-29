@@ -5,8 +5,7 @@ export type NormalizedInput = Readonly<{
   headers: Readonly<Record<string, string>>
 }>
 
-const normalizeUserAgent = (userAgent: string | undefined): string =>
-  userAgent?.trim() ?? ''
+const normalizeUserAgent = (userAgent: string | undefined): string => userAgent?.trim() ?? ''
 
 const normalizeHeaders = (headers: DeviceHeaders | undefined): Readonly<Record<string, string>> =>
   Object.fromEntries(

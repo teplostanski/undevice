@@ -10,14 +10,16 @@ describe('normalizeInput', () => {
   })
 
   it('trims the user agent and normalizes header names', () => {
-    expect(normalizeInput({
-      userAgent: '  iPhone  ',
-      headers: {
-        'CF-Device-Type': ' Mobile ',
-        'X-Empty': '   ',
-        'X-Missing': undefined,
-      },
-    })).toEqual({
+    expect(
+      normalizeInput({
+        userAgent: '  iPhone  ',
+        headers: {
+          'CF-Device-Type': ' Mobile ',
+          'X-Empty': '   ',
+          'X-Missing': undefined,
+        },
+      }),
+    ).toEqual({
       userAgent: 'iPhone',
       headers: {
         'cf-device-type': 'Mobile',

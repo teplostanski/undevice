@@ -2,39 +2,39 @@ import { DeviceKind } from './constants.js'
 
 export type { DeviceKind } from './constants.js'
 
-export type DeviceKindFlags
-  = | Readonly<{
-    isMobile: true
-    isTablet: false
-    isDesktop: false
-    isUnknown: false
-    isMobileOrTablet: true
-    isDesktopOrTablet: false
-  }>
+export type DeviceKindFlags =
   | Readonly<{
-    isMobile: false
-    isTablet: true
-    isDesktop: false
-    isUnknown: false
-    isMobileOrTablet: true
-    isDesktopOrTablet: true
-  }>
+      isMobile: true
+      isTablet: false
+      isDesktop: false
+      isUnknown: false
+      isMobileOrTablet: true
+      isDesktopOrTablet: false
+    }>
   | Readonly<{
-    isMobile: false
-    isTablet: false
-    isDesktop: true
-    isUnknown: false
-    isMobileOrTablet: false
-    isDesktopOrTablet: true
-  }>
+      isMobile: false
+      isTablet: true
+      isDesktop: false
+      isUnknown: false
+      isMobileOrTablet: true
+      isDesktopOrTablet: true
+    }>
   | Readonly<{
-    isMobile: false
-    isTablet: false
-    isDesktop: false
-    isUnknown: true
-    isMobileOrTablet: false
-    isDesktopOrTablet: false
-  }>
+      isMobile: false
+      isTablet: false
+      isDesktop: true
+      isUnknown: false
+      isMobileOrTablet: false
+      isDesktopOrTablet: true
+    }>
+  | Readonly<{
+      isMobile: false
+      isTablet: false
+      isDesktop: false
+      isUnknown: true
+      isMobileOrTablet: false
+      isDesktopOrTablet: false
+    }>
 
 const DeviceKindFlagsByKind = {
   [DeviceKind.Mobile]: {
@@ -72,17 +72,17 @@ const DeviceKindFlagsByKind = {
 } as const satisfies Record<DeviceKind, DeviceKindFlags>
 
 const isTabletUserAgent = (userAgent: string): boolean =>
-  /iPad/i.test(userAgent)
-  || /Tablet|PlayBook|Silk/i.test(userAgent)
-  || (/Android/i.test(userAgent) && !/Mobile|Opera Mini/i.test(userAgent))
+  /iPad/i.test(userAgent) ||
+  /Tablet|PlayBook|Silk/i.test(userAgent) ||
+  (/Android/i.test(userAgent) && !/Mobile|Opera Mini/i.test(userAgent))
 
 const isMobileUserAgent = (userAgent: string): boolean =>
   /iPhone|iPod|Android|Mobile|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(userAgent)
 
 const isDesktopUserAgent = (userAgent: string): boolean =>
-  /Mozilla\//i.test(userAgent)
-  || /Windows NT|Macintosh|Mac OS X|X11|CrOS|WOW64/i.test(userAgent)
-  || /Linux/i.test(userAgent)
+  /Mozilla\//i.test(userAgent) ||
+  /Windows NT|Macintosh|Mac OS X|X11|CrOS|WOW64/i.test(userAgent) ||
+  /Linux/i.test(userAgent)
 
 export const detectDeviceKind = (userAgent: string): DeviceKind => {
   if (userAgent.length === 0) {
@@ -104,5 +104,4 @@ export const detectDeviceKind = (userAgent: string): DeviceKind => {
   return DeviceKind.Unknown
 }
 
-export const toDeviceKindFlags = (kind: DeviceKind): DeviceKindFlags =>
-  DeviceKindFlagsByKind[kind]
+export const toDeviceKindFlags = (kind: DeviceKind): DeviceKindFlags => DeviceKindFlagsByKind[kind]

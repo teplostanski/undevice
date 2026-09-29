@@ -5,7 +5,7 @@ export const DeviceKind = Object.freeze({
   Unknown: 'unknown',
 } as const)
 
-export type DeviceKind = typeof DeviceKind[keyof typeof DeviceKind]
+export type DeviceKind = (typeof DeviceKind)[keyof typeof DeviceKind]
 
 export const BrowserName = Object.freeze({
   Samsung: 'Samsung',
@@ -15,13 +15,13 @@ export const BrowserName = Object.freeze({
   Safari: 'Safari',
 } as const)
 
-export type BrowserName = typeof BrowserName[keyof typeof BrowserName]
+export type BrowserName = (typeof BrowserName)[keyof typeof BrowserName]
 
 export const CloudflareHeader = Object.freeze({
   DeviceType: 'cf-device-type',
 } as const)
 
-export type CloudflareHeader = typeof CloudflareHeader[keyof typeof CloudflareHeader]
+export type CloudflareHeader = (typeof CloudflareHeader)[keyof typeof CloudflareHeader]
 
 export const CloudflareDeviceType = Object.freeze({
   Mobile: 'mobile',
@@ -29,7 +29,7 @@ export const CloudflareDeviceType = Object.freeze({
   Desktop: 'desktop',
 } as const)
 
-export type CloudflareDeviceType = typeof CloudflareDeviceType[keyof typeof CloudflareDeviceType]
+export type CloudflareDeviceType = (typeof CloudflareDeviceType)[keyof typeof CloudflareDeviceType]
 
 export const CloudFrontHeader = Object.freeze({
   IsMobileViewer: 'cloudfront-is-mobile-viewer',
@@ -39,10 +39,10 @@ export const CloudFrontHeader = Object.freeze({
   IsAndroidViewer: 'cloudfront-is-android-viewer',
 } as const)
 
-export type CloudFrontHeader = typeof CloudFrontHeader[keyof typeof CloudFrontHeader]
+export type CloudFrontHeader = (typeof CloudFrontHeader)[keyof typeof CloudFrontHeader]
 
 export const CloudFrontUserAgent = Object.freeze({
   AmazonCloudFront: 'Amazon CloudFront',
 } as const)
 
-export type CloudFrontUserAgent = typeof CloudFrontUserAgent[keyof typeof CloudFrontUserAgent]
+export type CloudFrontUserAgent = (typeof CloudFrontUserAgent)[keyof typeof CloudFrontUserAgent]

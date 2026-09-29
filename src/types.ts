@@ -9,8 +9,10 @@ export type DetectDeviceInput = Readonly<{
   headers?: DeviceHeaders
 }>
 
-type PlatformFlags = OsFlags & BrowserFlags & Readonly<{
-  isCrawler: boolean
-}>
+type PlatformFlags = OsFlags &
+  BrowserFlags &
+  Readonly<{
+    isCrawler: boolean
+  }>
 
 export type DeviceFlags = DeviceKindFlags & PlatformFlags

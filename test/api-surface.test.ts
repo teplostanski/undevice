@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   BrowserName,
-  CloudflareDeviceType,
-  CloudflareHeader,
   CloudFrontHeader,
   CloudFrontUserAgent,
+  CloudflareDeviceType,
+  CloudflareHeader,
   DeviceKind,
   detectDevice,
 } from '../src/index.js'

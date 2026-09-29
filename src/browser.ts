@@ -1,5 +1,5 @@
-import { BrowserName } from './constants.js'
 import type { BrowserName as BrowserNameType } from './constants.js'
+import { BrowserName } from './constants.js'
 
 export type { BrowserName } from './constants.js'
 
@@ -66,13 +66,11 @@ const EmptyBrowserFlags = {
 } as const satisfies BrowserFlags
 
 export const detectBrowserName = (userAgent: string): BrowserNameType | undefined =>
-  (Object.entries(BrowserPatternByName) as Array<[BrowserNameType, RegExp]>)
-    .find(([, pattern]) => pattern.test(userAgent))
-    ?.[0]
+  (Object.entries(BrowserPatternByName) as Array<[BrowserNameType, RegExp]>).find(([, pattern]) =>
+    pattern.test(userAgent),
+  )?.[0]
 
 export const detectBrowserFlags = (userAgent: string): BrowserFlags => {
   const browserName = detectBrowserName(userAgent)
-  return browserName === undefined
-    ? EmptyBrowserFlags
-    : BrowserFlagsByName[browserName]
+  return browserName === undefined ? EmptyBrowserFlags : BrowserFlagsByName[browserName]
 }

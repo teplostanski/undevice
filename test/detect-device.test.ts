@@ -30,17 +30,11 @@ describe('detectDevice', () => {
   })
 
   it('detects Android phone as mobile', () => {
-    expectExclusiveKind(
-      detectDevice({ userAgent: userAgents.androidPhone }),
-      'isMobile',
-    )
+    expectExclusiveKind(detectDevice({ userAgent: userAgents.androidPhone }), 'isMobile')
   })
 
   it('detects Android tablet as tablet', () => {
-    expectExclusiveKind(
-      detectDevice({ userAgent: userAgents.androidTablet }),
-      'isTablet',
-    )
+    expectExclusiveKind(detectDevice({ userAgent: userAgents.androidTablet }), 'isTablet')
   })
 
   it('detects desktop Chrome as desktop', () => {
@@ -52,24 +46,15 @@ describe('detectDevice', () => {
   })
 
   it('detects Windows NT without Mozilla as desktop', () => {
-    expectExclusiveKind(
-      detectDevice({ userAgent: userAgents.desktopWindowsNt }),
-      'isDesktop',
-    )
+    expectExclusiveKind(detectDevice({ userAgent: userAgents.desktopWindowsNt }), 'isDesktop')
   })
 
   it('detects Linux without Mozilla as desktop', () => {
-    expectExclusiveKind(
-      detectDevice({ userAgent: userAgents.desktopLinux }),
-      'isDesktop',
-    )
+    expectExclusiveKind(detectDevice({ userAgent: userAgents.desktopLinux }), 'isDesktop')
   })
 
   it('detects PlayBook as tablet', () => {
-    expectExclusiveKind(
-      detectDevice({ userAgent: userAgents.playbook }),
-      'isTablet',
-    )
+    expectExclusiveKind(detectDevice({ userAgent: userAgents.playbook }), 'isTablet')
   })
 
   it('returns a frozen result object', () => {
@@ -88,10 +73,7 @@ describe('detectDevice', () => {
   })
 
   it('treats unrecognized non-empty user agents as unknown', () => {
-    expectExclusiveKind(
-      detectDevice({ userAgent: userAgents.garbage }),
-      'isUnknown',
-    )
+    expectExclusiveKind(detectDevice({ userAgent: userAgents.garbage }), 'isUnknown')
   })
 
   it('is deterministic for the same input', () => {
