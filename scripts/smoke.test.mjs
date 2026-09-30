@@ -1,9 +1,10 @@
+import { mkdtempSync, rmSync } from 'node:fs'
 import { createRequire } from 'node:module'
+import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { mkdtempSync, rmSync } from 'node:fs'
-import { tmpdir } from 'node:os'
 import { createContext, runInContext } from 'node:vm'
+import { expect, it } from 'vitest'
 
 const require = createRequire(import.meta.url)
 const root = new URL('..', import.meta.url)
@@ -15,13 +16,12 @@ const loadEsbuild = () => {
   return require(esbuildPath)
 }
 
-const assertNoNodeBuiltins = (code, label) => {
-  if (/['"]node:/.test(code) || /\brequire\(['"]fs['"]\)/.test(code)) {
-    throw new Error(`${label}: bundle contains Node-only imports`)
-  }
+const assertNoNodeBuiltins = code => {
+  expect(code).not.toMatch(/['"]node:/)
+  expect(code).not.toMatch(/\brequire\(['"]fs['"]\)/)
 }
 
-const smokeBrowserBundler = async () => {
+it('runs a browser bundle without Node.js built-ins', async () => {
   const esbuild = loadEsbuild()
   const entry = `
     import { detectDevice } from ${JSON.stringify(distEntry.pathname)};
@@ -45,20 +45,16 @@ const smokeBrowserBundler = async () => {
   })
 
   const code = result.outputFiles[0].text
-  assertNoNodeBuiltins(code, 'browser bundle')
+  assertNoNodeBuiltins(code)
 
   const context = createContext({ globalThis: {} })
   runInContext(code, context)
 
   const flags = context.globalThis.__undeviceSmoke
-  if (!flags?.isMobile) {
-    throw new Error('browser bundle: expected isMobile for iPhone UA')
-  }
+  expect(flags?.isMobile).toBe(true)
+})
 
-  console.log('ok: browser bundler')
-}
-
-const smokeEdgeLikeRuntime = async () => {
+it('runs a neutral ESM bundle with crawler detection', async () => {
   const esbuild = loadEsbuild()
   const tempDir = mkdtempSync(join(tmpdir(), 'undevice-smoke-edge-'))
   const outfile = join(tempDir, 'edge.mjs')
@@ -76,23 +72,15 @@ const smokeEdgeLikeRuntime = async () => {
     })
 
     const code = await import('node:fs').then(fs => fs.readFileSync(outfile, 'utf8'))
-    assertNoNodeBuiltins(code, 'edge bundle')
+    assertNoNodeBuiltins(code)
 
     const mod = await import(pathToFileURL(outfile).href)
     const flags = mod.detectDevice({
       userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
     })
 
-    if (!flags.isCrawler) {
-      throw new Error('edge bundle: expected isCrawler for Googlebot')
-    }
-
-    console.log('ok: edge-like runtime')
-  }
-  finally {
+    expect(flags.isCrawler).toBe(true)
+  } finally {
     rmSync(tempDir, { recursive: true, force: true })
   }
-}
-
-await smokeBrowserBundler()
-await smokeEdgeLikeRuntime()
+})
