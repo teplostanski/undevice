@@ -41,7 +41,9 @@ Pure function: does not read globals or mutate input. Default `input` is `{}`.
 ### Types
 
 ```ts
-type DeviceHeaders = Readonly<Record<string, string | undefined>>
+type DeviceHeaders =
+  | Readonly<Record<string, string | readonly string[] | undefined>>
+  | Readonly<{ get(name: string): string | null }>
 
 type DetectDeviceInput = Readonly<{
   userAgent?: string
@@ -54,7 +56,16 @@ type DeviceFlags = DeviceKindFlags & OsFlags & BrowserFlags & {
 }
 ```
 
-- `DeviceHeaders` keys are matched case-insensitively.
+- Pass the complete headers object: plain records (including Node.js headers),
+  standard `Headers`, or a compatible reader with `get(name)` are accepted.
+- Record keys are matched case-insensitively. Readers must perform case-insensitive
+  lookup like standard `Headers`; they are queried with lowercase names.
+- Array values in records use the first element only; an empty array or empty
+  first element is ignored. `Headers` values are used as returned by `get()`.
+- If `userAgent` is omitted, it is read from the `user-agent` header.
+  An explicit `userAgent` takes precedence, including an empty or whitespace-only
+  string. CDN hints retain their existing precedence for device detection.
+- Header values and the user agent are trimmed; the input is not mutated.
 - `DeviceFlags` does not echo the input `userAgent`.
 
 ### Invariants
@@ -99,8 +110,7 @@ device.isSafari; // true
 
 ```js
 const device = detectDevice({
-  userAgent: request.headers.get("user-agent") || undefined,
-  headers: Object.fromEntries(request.headers),
+  headers: request.headers,
 });
 ```
 
