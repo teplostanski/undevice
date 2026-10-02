@@ -75,6 +75,7 @@ it('runs a neutral ESM bundle with crawler detection', async () => {
     assertNoNodeBuiltins(code)
 
     const mod = await import(pathToFileURL(outfile).href)
+    expect(Object.keys(mod)).toEqual(['detectDevice'])
     const flags = mod.detectDevice({
       userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
     })

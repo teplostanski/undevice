@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import {
-  CloudFrontHeader,
-  CloudflareDeviceType,
-  CloudflareHeader,
-  detectDevice,
-} from '../src/index.js'
+import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/constants.js'
+import { detectDevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 describe('conflicting user-agent tokens', () => {
