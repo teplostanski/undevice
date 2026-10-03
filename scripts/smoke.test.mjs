@@ -24,8 +24,8 @@ const assertNoNodeBuiltins = code => {
 it('runs a browser bundle without Node.js built-ins', async () => {
   const esbuild = loadEsbuild()
   const entry = `
-    import { detectDevice } from ${JSON.stringify(distEntry.pathname)};
-    globalThis.__undeviceSmoke = detectDevice({
+    import { undevice } from ${JSON.stringify(distEntry.pathname)};
+    globalThis.__undeviceSmoke = undevice({
       userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)',
     });
   `
@@ -75,8 +75,8 @@ it('runs a neutral ESM bundle with crawler detection', async () => {
     assertNoNodeBuiltins(code)
 
     const mod = await import(pathToFileURL(outfile).href)
-    expect(Object.keys(mod)).toEqual(['detectDevice'])
-    const flags = mod.detectDevice({
+    expect(Object.keys(mod)).toEqual(['undevice'])
+    const flags = mod.undevice({
       userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
     })
 

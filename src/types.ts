@@ -2,13 +2,13 @@ import type { BrowserFlags } from './browser.js'
 import type { DeviceKindFlags } from './device-kind.js'
 import type { OsFlags } from './os.js'
 
-export type DeviceHeaders =
+export type RequestHeaders =
   | Readonly<Record<string, string | readonly string[] | undefined>>
   | Readonly<{ get(name: string): string | null }>
 
-export type DetectDeviceInput = Readonly<{
+export type UndeviceOptions = Readonly<{
   userAgent?: string
-  headers?: DeviceHeaders
+  headers?: RequestHeaders
 }>
 
 type PlatformFlags = OsFlags &
@@ -17,4 +17,4 @@ type PlatformFlags = OsFlags &
     isCrawler: boolean
   }>
 
-export type DeviceFlags = DeviceKindFlags & PlatformFlags
+export type UndeviceResult = DeviceKindFlags & PlatformFlags

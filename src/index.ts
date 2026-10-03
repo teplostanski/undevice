@@ -1,6 +1,6 @@
-export { detectDevice } from './detect-device.js'
 export type {
-  DetectDeviceInput,
-  DeviceFlags,
-  DeviceHeaders,
+  RequestHeaders,
+  UndeviceOptions,
+  UndeviceResult,
 } from './types.js'
+export { undevice } from './undevice.js'

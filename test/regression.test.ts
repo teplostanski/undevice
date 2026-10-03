@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/constants.js'
-import { detectDevice } from '../src/index.js'
+import { undevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 const cases = [
@@ -110,6 +110,6 @@ const cases = [
 
 describe('recognition regressions', () => {
   it.each(cases)('$name', ({ input, expected }) => {
-    expect(detectDevice(input)).toMatchObject(expected)
+    expect(undevice(input)).toMatchObject(expected)
   })
 })

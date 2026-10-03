@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/constants.js'
-import { detectDevice } from '../src/index.js'
+import { undevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 describe('CDN header precedence', () => {
   it('uses Cloudflare CF-Device-Type over the user agent', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.desktopChrome,
       headers: {
         [CloudflareHeader.DeviceType]: CloudflareDeviceType.Mobile,
@@ -23,7 +23,7 @@ describe('CDN header precedence', () => {
   })
 
   it('accepts Cloudflare headers case-insensitively', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.iphone,
       headers: {
         'CF-Device-Type': CloudflareDeviceType.Desktop,
@@ -38,7 +38,7 @@ describe('CDN header precedence', () => {
   })
 
   it('falls back to the user agent for unknown Cloudflare values', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.iphone,
       headers: {
         [CloudflareHeader.DeviceType]: 'smarttv',
@@ -49,7 +49,7 @@ describe('CDN header precedence', () => {
   })
 
   it('uses CloudFront viewer headers when the UA is Amazon CloudFront', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.cloudfront,
       headers: {
         [CloudFrontHeader.IsMobileViewer]: 'true',
@@ -68,7 +68,7 @@ describe('CDN header precedence', () => {
   })
 
   it('lets CloudFront tablet override mobile', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.cloudfront,
       headers: {
         [CloudFrontHeader.IsMobileViewer]: 'true',
@@ -84,7 +84,7 @@ describe('CDN header precedence', () => {
   })
 
   it('treats CloudFront without viewer hints as unknown', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.cloudfront,
     })
 
@@ -92,7 +92,7 @@ describe('CDN header precedence', () => {
   })
 
   it('does not apply CloudFront headers for regular user agents', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       userAgent: userAgents.desktopChrome,
       headers: {
         [CloudFrontHeader.IsMobileViewer]: 'true',
@@ -104,7 +104,7 @@ describe('CDN header precedence', () => {
   })
 
   it('prefers empty-UA Cloudflare hints over unknown', () => {
-    const flags = detectDevice({
+    const flags = undevice({
       headers: {
         [CloudflareHeader.DeviceType]: CloudflareDeviceType.Tablet,
       },

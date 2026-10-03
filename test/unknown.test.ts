@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { detectDevice } from '../src/index.js'
+import { undevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 describe('unknown user agents', () => {
@@ -7,7 +7,7 @@ describe('unknown user agents', () => {
     ['empty object', {}],
     ['whitespace UA', { userAgent: '   ' }],
   ] as const)('treats %s as unknown non-crawler', (_label, input) => {
-    const flags = detectDevice(input)
+    const flags = undevice(input)
 
     expect(flags).toMatchObject({
       isMobile: false,
@@ -26,7 +26,7 @@ describe('unknown user agents', () => {
     ['python-requests', userAgents.pythonRequests],
     ['punctuation only', userAgents.punctuationOnly],
   ] as const)('treats %s as unknown crawler', (_label, userAgent) => {
-    const flags = detectDevice({ userAgent })
+    const flags = undevice({ userAgent })
 
     expect(flags).toMatchObject({
       isMobile: false,

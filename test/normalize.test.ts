@@ -1,7 +1,7 @@
 import type { IncomingHttpHeaders } from 'node:http'
 import { describe, expect, it } from 'vitest'
-import type { DeviceHeaders } from '../src/index.js'
-import { detectDevice } from '../src/index.js'
+import type { RequestHeaders } from '../src/index.js'
+import { undevice } from '../src/index.js'
 import { normalizeInput } from '../src/normalize.js'
 
 describe('normalizeInput', () => {
@@ -23,7 +23,7 @@ describe('normalizeInput', () => {
       },
     ],
   ] as const)('accepts %s and extracts UA with CDN precedence', (_name, headers) => {
-    expect(detectDevice({ headers })).toMatchObject({ isTablet: true, isIos: true })
+    expect(undevice({ headers })).toMatchObject({ isTablet: true, isIos: true })
   })
 
   it.each([
@@ -41,20 +41,20 @@ describe('normalizeInput', () => {
       'user-agent': ' iPhone ',
       'cf-device-type': [' tablet ', 'mobile'],
     }
-    const compatible: DeviceHeaders = headers
-    expect(detectDevice({ headers: compatible })).toMatchObject({ isTablet: true, isIos: true })
+    const compatible: RequestHeaders = headers
+    expect(undevice({ headers: compatible })).toMatchObject({ isTablet: true, isIos: true })
     expect(headers).toEqual({ 'user-agent': ' iPhone ', 'cf-device-type': [' tablet ', 'mobile'] })
   })
 
   it('preserves the receiver when calling get', () => {
     const headers = new Headers({ 'User-Agent': 'iPhone' })
-    expect(detectDevice({ headers }).isIos).toBe(true)
+    expect(undevice({ headers }).isIos).toBe(true)
     expect(headers.get('user-agent')).toBe('iPhone')
   })
 
   it('uses CloudFront hints when its UA comes from Headers', () => {
     expect(
-      detectDevice({
+      undevice({
         headers: new Headers({
           'User-Agent': 'Amazon CloudFront',
           'CloudFront-Is-Mobile-Viewer': 'true',
@@ -71,7 +71,7 @@ describe('normalizeInput', () => {
   })
 
   it('accepts a plain header named get', () => {
-    expect(detectDevice({ headers: { get: 'text', 'user-agent': 'iPhone' } }).isIos).toBe(true)
+    expect(undevice({ headers: { get: 'text', 'user-agent': 'iPhone' } }).isIos).toBe(true)
   })
   it('returns empty values for an empty input', () => {
     expect(normalizeInput({})).toEqual({
