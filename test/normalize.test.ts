@@ -1,8 +1,8 @@
 import type { IncomingHttpHeaders } from 'node:http'
 import { describe, expect, it } from 'vitest'
+import { normalizeInput } from '../src/core/normalize.js'
 import type { RequestHeaders } from '../src/index.js'
 import { undevice } from '../src/index.js'
-import { normalizeInput } from '../src/normalize.js'
 
 describe('normalizeInput', () => {
   it.each([
@@ -23,11 +23,11 @@ describe('normalizeInput', () => {
       },
     ],
   ] as const)('accepts %s and extracts UA with CDN precedence', (_name, headers) => {
-    expect(undevice({ headers })).toMatchObject({ isTablet: true, isIos: true })
+    expect(undevice().detect({ headers })).toMatchObject({ isTablet: true, isIos: true })
   })
 
   it.each([
-    ['iPad', 'iPad'],
+    ['iPad', 'ipad'],
     ['', ''],
     ['   ', ''],
   ])('uses explicit UA %j over the header', (userAgent, expected) => {
@@ -42,19 +42,22 @@ describe('normalizeInput', () => {
       'cf-device-type': [' tablet ', 'mobile'],
     }
     const compatible: RequestHeaders = headers
-    expect(undevice({ headers: compatible })).toMatchObject({ isTablet: true, isIos: true })
+    expect(undevice().detect({ headers: compatible })).toMatchObject({
+      isTablet: true,
+      isIos: true,
+    })
     expect(headers).toEqual({ 'user-agent': ' iPhone ', 'cf-device-type': [' tablet ', 'mobile'] })
   })
 
   it('preserves the receiver when calling get', () => {
     const headers = new Headers({ 'User-Agent': 'iPhone' })
-    expect(undevice({ headers }).isIos).toBe(true)
+    expect(undevice().detect({ headers }).isIos).toBe(true)
     expect(headers.get('user-agent')).toBe('iPhone')
   })
 
   it('uses CloudFront hints when its UA comes from Headers', () => {
     expect(
-      undevice({
+      undevice().detect({
         headers: new Headers({
           'User-Agent': 'Amazon CloudFront',
           'CloudFront-Is-Mobile-Viewer': 'true',
@@ -71,7 +74,7 @@ describe('normalizeInput', () => {
   })
 
   it('accepts a plain header named get', () => {
-    expect(undevice({ headers: { get: 'text', 'user-agent': 'iPhone' } }).isIos).toBe(true)
+    expect(undevice().detect({ headers: { get: 'text', 'user-agent': 'iPhone' } }).isIos).toBe(true)
   })
   it('returns empty values for an empty input', () => {
     expect(normalizeInput({})).toEqual({
@@ -80,7 +83,7 @@ describe('normalizeInput', () => {
     })
   })
 
-  it('trims the user agent and normalizes header names', () => {
+  it('trims and lowercases the user agent and normalizes header names', () => {
     expect(
       normalizeInput({
         userAgent: '  iPhone  ',
@@ -91,7 +94,7 @@ describe('normalizeInput', () => {
         },
       }),
     ).toEqual({
-      userAgent: 'iPhone',
+      userAgent: 'iphone',
       headers: {
         'cf-device-type': 'Mobile',
       },

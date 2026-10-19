@@ -79,7 +79,7 @@ export const resolveCdnHints = (
   userAgent: string,
   headers: Readonly<Record<string, string>>,
 ): CdnHints => {
-  if (userAgent === CloudFrontUserAgent.AmazonCloudFront) {
+  if (userAgent === CloudFrontUserAgent.AmazonCloudFront.toLowerCase()) {
     return {
       kind: kindFromCloudFront(headers) ?? DeviceKind.Unknown,
       os: osFromCloudFront(headers),

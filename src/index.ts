@@ -2,5 +2,5 @@ export type {
   RequestHeaders,
   UndeviceOptions,
   UndeviceResult,
-} from './types.js'
-export { undevice } from './undevice.js'
+} from './core/types.js'
+export { undevice } from './core/undevice.js'

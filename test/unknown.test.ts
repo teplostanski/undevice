@@ -6,8 +6,8 @@ describe('unknown user agents', () => {
   it.each([
     ['empty object', {}],
     ['whitespace UA', { userAgent: '   ' }],
-  ] as const)('treats %s as unknown non-crawler', (_label, input) => {
-    const flags = undevice(input)
+  ] as const)('treats %s as unknown', (_label, input) => {
+    const flags = undevice().detect(input)
 
     expect(flags).toMatchObject({
       isMobile: false,
@@ -16,7 +16,6 @@ describe('unknown user agents', () => {
       isUnknown: true,
       isMobileOrTablet: false,
       isDesktopOrTablet: false,
-      isCrawler: false,
     })
   })
 
@@ -25,15 +24,14 @@ describe('unknown user agents', () => {
     ['curl', userAgents.curl],
     ['python-requests', userAgents.pythonRequests],
     ['punctuation only', userAgents.punctuationOnly],
-  ] as const)('treats %s as unknown crawler', (_label, userAgent) => {
-    const flags = undevice({ userAgent })
+  ] as const)('treats %s as unknown', (_label, userAgent) => {
+    const flags = undevice().detect({ userAgent })
 
     expect(flags).toMatchObject({
       isMobile: false,
       isTablet: false,
       isDesktop: false,
       isUnknown: true,
-      isCrawler: true,
     })
   })
 })

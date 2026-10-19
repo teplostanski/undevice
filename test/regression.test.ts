@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/constants.js'
+import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/core/constants.js'
 import { undevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
@@ -70,10 +70,9 @@ const cases = [
     },
   },
   {
-    name: 'Googlebot stays crawler and is not forced to desktop',
+    name: 'Googlebot retains desktop recognition from its UA',
     input: { userAgent: userAgents.googlebot },
     expected: {
-      isCrawler: true,
       isDesktop: true,
       isUnknown: false,
     },
@@ -88,7 +87,6 @@ const cases = [
     expected: {
       isTablet: true,
       isUnknown: false,
-      isCrawler: false,
     },
   },
   {
@@ -110,6 +108,6 @@ const cases = [
 
 describe('recognition regressions', () => {
   it.each(cases)('$name', ({ input, expected }) => {
-    expect(undevice(input)).toMatchObject(expected)
+    expect(undevice().detect(input)).toMatchObject(expected)
   })
 })

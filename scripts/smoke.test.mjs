@@ -25,7 +25,7 @@ it('runs a browser bundle without Node.js built-ins', async () => {
   const esbuild = loadEsbuild()
   const entry = `
     import { undevice } from ${JSON.stringify(distEntry.pathname)};
-    globalThis.__undeviceSmoke = undevice({
+    globalThis.__undeviceSmoke = undevice().detect({
       userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)',
     });
   `
@@ -54,7 +54,7 @@ it('runs a browser bundle without Node.js built-ins', async () => {
   expect(flags?.isMobile).toBe(true)
 })
 
-it('runs a neutral ESM bundle with crawler detection', async () => {
+it('runs a neutral ESM bundle with a custom crawler flag', async () => {
   const esbuild = loadEsbuild()
   const tempDir = mkdtempSync(join(tmpdir(), 'undevice-smoke-edge-'))
   const outfile = join(tempDir, 'edge.mjs')
@@ -76,9 +76,13 @@ it('runs a neutral ESM bundle with crawler detection', async () => {
 
     const mod = await import(pathToFileURL(outfile).href)
     expect(Object.keys(mod)).toEqual(['undevice'])
-    const flags = mod.undevice({
-      userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-    })
+    const flags = mod
+      .undevice({
+        isCrawler: ua => /Googlebot/i.test(ua),
+      })
+      .detect({
+        userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+      })
 
     expect(flags.isCrawler).toBe(true)
   } finally {

@@ -3,7 +3,7 @@ import { undevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 const expectExclusiveKind = (
-  flags: ReturnType<typeof undevice>,
+  flags: ReturnType<ReturnType<typeof undevice>['detect']>,
   kind: 'isMobile' | 'isTablet' | 'isDesktop' | 'isUnknown',
 ) => {
   expect(flags.isMobile).toBe(kind === 'isMobile')
@@ -14,7 +14,7 @@ const expectExclusiveKind = (
 
 describe('undevice', () => {
   it('detects iPhone as mobile', () => {
-    const flags = undevice({ userAgent: userAgents.iphone })
+    const flags = undevice().detect({ userAgent: userAgents.iphone })
 
     expectExclusiveKind(flags, 'isMobile')
     expect(flags.isMobileOrTablet).toBe(true)
@@ -22,7 +22,7 @@ describe('undevice', () => {
   })
 
   it('detects iPad as tablet', () => {
-    const flags = undevice({ userAgent: userAgents.ipad })
+    const flags = undevice().detect({ userAgent: userAgents.ipad })
 
     expectExclusiveKind(flags, 'isTablet')
     expect(flags.isMobileOrTablet).toBe(true)
@@ -30,15 +30,15 @@ describe('undevice', () => {
   })
 
   it('detects Android phone as mobile', () => {
-    expectExclusiveKind(undevice({ userAgent: userAgents.androidPhone }), 'isMobile')
+    expectExclusiveKind(undevice().detect({ userAgent: userAgents.androidPhone }), 'isMobile')
   })
 
   it('detects Android tablet as tablet', () => {
-    expectExclusiveKind(undevice({ userAgent: userAgents.androidTablet }), 'isTablet')
+    expectExclusiveKind(undevice().detect({ userAgent: userAgents.androidTablet }), 'isTablet')
   })
 
   it('detects desktop Chrome as desktop', () => {
-    const flags = undevice({ userAgent: userAgents.desktopChrome })
+    const flags = undevice().detect({ userAgent: userAgents.desktopChrome })
 
     expectExclusiveKind(flags, 'isDesktop')
     expect(flags.isMobileOrTablet).toBe(false)
@@ -46,19 +46,19 @@ describe('undevice', () => {
   })
 
   it('detects Windows NT without Mozilla as desktop', () => {
-    expectExclusiveKind(undevice({ userAgent: userAgents.desktopWindowsNt }), 'isDesktop')
+    expectExclusiveKind(undevice().detect({ userAgent: userAgents.desktopWindowsNt }), 'isDesktop')
   })
 
   it('detects Linux without Mozilla as desktop', () => {
-    expectExclusiveKind(undevice({ userAgent: userAgents.desktopLinux }), 'isDesktop')
+    expectExclusiveKind(undevice().detect({ userAgent: userAgents.desktopLinux }), 'isDesktop')
   })
 
   it('detects PlayBook as tablet', () => {
-    expectExclusiveKind(undevice({ userAgent: userAgents.playbook }), 'isTablet')
+    expectExclusiveKind(undevice().detect({ userAgent: userAgents.playbook }), 'isTablet')
   })
 
   it('returns a frozen result object', () => {
-    const flags = undevice({ userAgent: userAgents.iphone })
+    const flags = undevice().detect({ userAgent: userAgents.iphone })
 
     expect(Object.isFrozen(flags)).toBe(true)
     expect(() => {
@@ -68,17 +68,17 @@ describe('undevice', () => {
   })
 
   it('treats an empty user agent as unknown', () => {
-    expectExclusiveKind(undevice({}), 'isUnknown')
-    expectExclusiveKind(undevice({ userAgent: '   ' }), 'isUnknown')
+    expectExclusiveKind(undevice().detect({}), 'isUnknown')
+    expectExclusiveKind(undevice().detect({ userAgent: '   ' }), 'isUnknown')
   })
 
   it('treats unrecognized non-empty user agents as unknown', () => {
-    expectExclusiveKind(undevice({ userAgent: userAgents.garbage }), 'isUnknown')
+    expectExclusiveKind(undevice().detect({ userAgent: userAgents.garbage }), 'isUnknown')
   })
 
   it('is deterministic for the same input', () => {
     const input = { userAgent: userAgents.iphone }
 
-    expect(undevice(input)).toEqual(undevice(input))
+    expect(undevice().detect(input)).toEqual(undevice().detect(input))
   })
 })

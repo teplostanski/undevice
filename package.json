@@ -65,8 +65,5 @@
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.10"
-  },
-  "dependencies": {
-    "isbot": "^5.2.1"
   }
 }

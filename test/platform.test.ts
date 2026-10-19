@@ -4,7 +4,7 @@ import { userAgents } from './fixtures.js'
 
 describe('OS and browser flags', () => {
   it('detects iPhone as iOS Safari on Apple', () => {
-    const flags = undevice({ userAgent: userAgents.iphone })
+    const flags = undevice().detect({ userAgent: userAgents.iphone })
 
     expect(flags).toMatchObject({
       isIos: true,
@@ -17,7 +17,7 @@ describe('OS and browser flags', () => {
   })
 
   it('detects Android Chrome phone', () => {
-    const flags = undevice({ userAgent: userAgents.androidPhone })
+    const flags = undevice().detect({ userAgent: userAgents.androidPhone })
 
     expect(flags).toMatchObject({
       isAndroid: true,
@@ -28,7 +28,7 @@ describe('OS and browser flags', () => {
   })
 
   it('detects Windows Chrome desktop', () => {
-    const flags = undevice({ userAgent: userAgents.desktopChrome })
+    const flags = undevice().detect({ userAgent: userAgents.desktopChrome })
 
     expect(flags).toMatchObject({
       isWindows: true,
@@ -39,7 +39,7 @@ describe('OS and browser flags', () => {
   })
 
   it('detects Linux Firefox desktop', () => {
-    const flags = undevice({ userAgent: userAgents.desktopFirefox })
+    const flags = undevice().detect({ userAgent: userAgents.desktopFirefox })
 
     expect(flags).toMatchObject({
       isLinux: true,
@@ -49,7 +49,7 @@ describe('OS and browser flags', () => {
   })
 
   it('detects macOS Safari desktop', () => {
-    const flags = undevice({ userAgent: userAgents.desktopSafari })
+    const flags = undevice().detect({ userAgent: userAgents.desktopSafari })
 
     expect(flags).toMatchObject({
       isMacOS: true,
@@ -61,7 +61,7 @@ describe('OS and browser flags', () => {
   })
 
   it('detects Edge before Chrome', () => {
-    const flags = undevice({ userAgent: userAgents.desktopEdge })
+    const flags = undevice().detect({ userAgent: userAgents.desktopEdge })
 
     expect(flags).toMatchObject({
       isWindows: true,
@@ -71,7 +71,7 @@ describe('OS and browser flags', () => {
   })
 
   it('detects Samsung Internet before Chrome', () => {
-    const flags = undevice({ userAgent: userAgents.samsungBrowser })
+    const flags = undevice().detect({ userAgent: userAgents.samsungBrowser })
 
     expect(flags).toMatchObject({
       isAndroid: true,

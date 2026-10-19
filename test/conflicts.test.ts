@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/constants.js'
+import { CloudFrontHeader, CloudflareDeviceType, CloudflareHeader } from '../src/core/constants.js'
 import { undevice } from '../src/index.js'
 import { userAgents } from './fixtures.js'
 
 describe('conflicting user-agent tokens', () => {
   it('keeps iPhone as iOS Safari, not macOS', () => {
-    const flags = undevice({ userAgent: userAgents.iphone })
+    const flags = undevice().detect({ userAgent: userAgents.iphone })
 
     expect(flags).toMatchObject({
       isMobile: true,
@@ -18,7 +18,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('keeps iPad as tablet even when Mobile is present', () => {
-    const flags = undevice({ userAgent: userAgents.ipad })
+    const flags = undevice().detect({ userAgent: userAgents.ipad })
 
     expect(flags).toMatchObject({
       isTablet: true,
@@ -29,7 +29,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('prefers Edge over Chrome when both tokens are present', () => {
-    const flags = undevice({ userAgent: userAgents.desktopEdge })
+    const flags = undevice().detect({ userAgent: userAgents.desktopEdge })
 
     expect(flags).toMatchObject({
       isEdge: true,
@@ -39,7 +39,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('prefers Samsung Internet over Chrome when both tokens are present', () => {
-    const flags = undevice({ userAgent: userAgents.samsungBrowser })
+    const flags = undevice().detect({ userAgent: userAgents.samsungBrowser })
 
     expect(flags).toMatchObject({
       isSamsung: true,
@@ -49,7 +49,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('prefers Chrome over Safari when both tokens are present', () => {
-    const flags = undevice({ userAgent: userAgents.desktopChrome })
+    const flags = undevice().detect({ userAgent: userAgents.desktopChrome })
 
     expect(flags).toMatchObject({
       isChrome: true,
@@ -58,7 +58,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('classifies Android without Mobile as tablet, not phone', () => {
-    const flags = undevice({ userAgent: userAgents.androidTablet })
+    const flags = undevice().detect({ userAgent: userAgents.androidTablet })
 
     expect(flags).toMatchObject({
       isTablet: true,
@@ -68,7 +68,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('classifies Kindle Silk as tablet despite Android token', () => {
-    const flags = undevice({ userAgent: userAgents.kindleSilk })
+    const flags = undevice().detect({ userAgent: userAgents.kindleSilk })
 
     expect(flags).toMatchObject({
       isTablet: true,
@@ -78,7 +78,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('classifies Windows Phone Edge as mobile with Windows and Android tokens', () => {
-    const flags = undevice({ userAgent: userAgents.windowsPhone })
+    const flags = undevice().detect({ userAgent: userAgents.windowsPhone })
 
     expect(flags).toMatchObject({
       isMobile: true,
@@ -90,7 +90,7 @@ describe('conflicting user-agent tokens', () => {
   })
 
   it('classifies Opera Mini as mobile despite Android-without-Mobile shape', () => {
-    const flags = undevice({ userAgent: userAgents.operaMini })
+    const flags = undevice().detect({ userAgent: userAgents.operaMini })
 
     expect(flags).toMatchObject({
       isMobile: true,
@@ -102,7 +102,7 @@ describe('conflicting user-agent tokens', () => {
 
 describe('conflicting CDN signals', () => {
   it('prefers CloudFront viewer headers over CF-Device-Type for CloudFront UA', () => {
-    const flags = undevice({
+    const flags = undevice().detect({
       userAgent: userAgents.cloudfront,
       headers: {
         [CloudflareHeader.DeviceType]: CloudflareDeviceType.Desktop,
@@ -118,7 +118,7 @@ describe('conflicting CDN signals', () => {
   })
 
   it('prefers CF-Device-Type over CloudFront headers for regular UA', () => {
-    const flags = undevice({
+    const flags = undevice().detect({
       userAgent: userAgents.desktopChrome,
       headers: {
         [CloudflareHeader.DeviceType]: CloudflareDeviceType.Mobile,
@@ -133,7 +133,7 @@ describe('conflicting CDN signals', () => {
   })
 
   it('lets the last true CloudFront device header win', () => {
-    const flags = undevice({
+    const flags = undevice().detect({
       userAgent: userAgents.cloudfront,
       headers: {
         [CloudFrontHeader.IsMobileViewer]: 'true',

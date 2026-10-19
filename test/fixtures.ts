@@ -1,4 +1,4 @@
-import { CloudFrontUserAgent } from '../src/constants.js'
+import { CloudFrontUserAgent } from '../src/core/constants.js'
 
 export const userAgents = {
   iphone:

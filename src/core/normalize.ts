@@ -37,7 +37,7 @@ const normalizeHeaders = (
 export const normalizeInput = (options: UndeviceOptions): NormalizedInput => {
   const headers = normalizeHeaders(options.headers)
   return {
-    userAgent: (options.userAgent ?? headers['user-agent'] ?? '').trim(),
+    userAgent: (options.userAgent ?? headers['user-agent'] ?? '').trim().toLowerCase(),
     headers,
   }
 }
