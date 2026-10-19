@@ -31,6 +31,13 @@ supported LTS line. CI runs the Vitest suite on Node.js 22 and 24.
 1. Bump `version` in `package.json` on `main`
 2. Push a matching tag, for example `v0.2.0`
 3. GitHub Actions runs `.github/workflows/release.yml`:
-   - checks, build, `publint`
-   - `npm publish` via trusted publishing
-   - GitHub Release with generated notes
+   - install from the lockfile, checks, build, `publint`, smoke tests
+   - `npm publish` via trusted publishing with a dist-tag derived from the version
+   - GitHub Release with generated notes, marked as a prerelease for prerelease versions
+
+Stable versions such as `1.0.0` publish under `latest`. Prerelease versions use
+their first prerelease identifier as the dist-tag: `1.0.0-beta` and `1.0.0-beta.1`
+publish under `beta`, while `1.0.0-rc.1` publishes under `rc`.
+Use a lowercase channel name starting with a letter; `latest` is reserved for
+stable releases. The Git tag must exactly match `v` followed by the package version,
+for example `v1.0.0-beta`.
