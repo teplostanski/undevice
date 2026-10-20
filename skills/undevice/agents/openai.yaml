@@ -1,0 +1,4 @@
+interface:
+  display_name: "undevice"
+  short_description: "Integrate device detection and custom UA flags"
+  default_prompt: "Use $undevice to add device detection to this project."

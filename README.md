@@ -22,6 +22,14 @@ _Not affiliated with the [UnJS](https://unjs.io/) organization._
 npm install undevice
 ```
 
+## Agent skill
+
+Install the [undevice skill](skills/undevice/SKILL.md) to help your coding agent use the API, configure custom flags, and integrate detection into request handlers and SSR.
+
+```bash
+npx skills add teplostanski/undevice --skill undevice
+```
+
 ## Usage
 
 ### Request headers
