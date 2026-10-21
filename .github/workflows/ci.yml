@@ -37,6 +37,10 @@ jobs:
       - run: pnpm publint
       - run: pnpm smoke
 
+      - name: Build documentation
+        if: matrix.node == 24
+        run: pnpm docs:build
+
       - name: Coverage
         if: matrix.node == 24
         run: pnpm test:coverage

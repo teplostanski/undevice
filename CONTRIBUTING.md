@@ -41,3 +41,33 @@ publish under `beta`, while `1.0.0-rc.1` publishes under `rc`.
 Use a lowercase channel name starting with a letter; `latest` is reserved for
 stable releases. The Git tag must exactly match `v` followed by the package version,
 for example `v1.0.0-beta`.
+
+## Documentation
+
+The VitePress site lives in `docs/` and targets https://undevice.hacks.run.
+
+- `pnpm docs:dev`: generate the API reference and start the local development server.
+- `pnpm docs:typecheck`: check the VitePress configuration types.
+- `pnpm docs:build`: regenerate the TypeDoc reference, check configuration types, and build the static site.
+- `pnpm docs:preview`: preview the production build.
+
+Edit English pages in `docs/guide/` and Russian pages in `docs/ru/guide/` together.
+The Russian README remains a local reference; the site builds entirely from tracked
+files in `docs/`. Generated `docs/api/` pages must not be edited or committed.
+Update source JSDoc and rerun `pnpm docs:api` instead.
+
+Mark self-contained TypeScript examples with `ts twoslash` to validate them and show
+type hints. Twoslash uses the `typescript-docs` alias because the project's
+TypeScript 6 package does not ship the standard library files required by its VFS.
+This does not change the library compiler. The public API reference is in English
+and shared by both locales. Local search indexes both languages. The LLM index and
+full bundle contain English docs; per-page Markdown is available in both languages.
+
+CI builds the site on Node.js 24. To host on GitHub Pages, select GitHub Actions as
+the Pages source, configure the custom domain `undevice.hacks.run`, and point its
+DNS CNAME to `teplostanski.github.io`. Then run the separate **docs** workflow from
+`main`. The workflow is manual so a package release does not publish the site.
+Enable HTTPS once GitHub has provisioned the certificate. DNS and repository Pages
+settings must be configured by the repository owner.
+
+For other static hosts, use `pnpm docs:build` and publish `docs/.vitepress/dist`.

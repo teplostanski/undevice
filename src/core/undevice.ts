@@ -6,6 +6,16 @@ import { normalizeInput } from './normalize.js'
 import { detectOsFlags } from './os.js'
 import type { Extensions, UndeviceOptions, UndeviceResult } from './types.js'
 
+/**
+ * Creates a reusable detector with optional custom boolean flags.
+ * Each call to `detect` returns a new frozen result for the supplied request.
+ * @param extensions - Named callbacks, substring arrays, or checks with exclusions.
+ * @example
+ * ```ts
+ * const { detect } = undevice({ isRawClient: ['curl', 'wget'] })
+ * const device = detect({ userAgent: 'curl/8.0' })
+ * ```
+ */
 export const undevice = <T extends Extensions = Record<never, never>>(extensions?: T) => {
   const detect = (options: UndeviceOptions): UndeviceResult<T> => {
     const { userAgent, headers } = normalizeInput(options)

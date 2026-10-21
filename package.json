@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/teplostanski/undevice/issues"
   },
-  "homepage": "https://github.com/teplostanski/undevice#readme",
+  "homepage": "https://undevice.hacks.run",
   "files": [
     "dist"
   ],
@@ -41,13 +41,20 @@
     "dev": "vitest",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "prepack": "pnpm build",
     "publint": "publint",
     "smoke": "vitest run --config vitest.smoke.config.ts",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docs:api": "typedoc",
+    "docs:dev": "pnpm docs:api && vitepress dev docs",
+    "docs:typecheck": "node node_modules/typescript-docs/bin/tsc -p docs/tsconfig.json",
+    "docs:build": "pnpm docs:api && pnpm docs:typecheck && vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "keywords": [
     "user-agent",
@@ -57,13 +64,24 @@
   ],
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
+    "@shikijs/vitepress-twoslash": "^2.5.0",
     "@types/node": "^22.20.4",
     "@typescript/native": "npm:typescript@^7.0.2",
     "@vitest/coverage-v8": "^4.1.10",
     "husky": "^9.1.7",
+    "isbot": "^5.2.2",
     "publint": "^0.3.22",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.14.0",
+    "typedoc-vitepress-theme": "^1.1.4",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-docs": "npm:typescript@6.0.3",
     "unbuild": "^3.6.1",
-    "vitest": "^4.1.10"
+    "vite": "^8.3.4",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-group-icons": "^1.8.1",
+    "vitepress-plugin-llms": "^1.14.0",
+    "vitest": "^4.1.10",
+    "vue": "^3.5.44"
   }
 }

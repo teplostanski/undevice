@@ -14,6 +14,8 @@ Works in Node.js, browsers, and edge runtimes without framework dependencies.
 - Custom detection flags.
 - Dependency-free.
 
+**[Documentation](https://undevice.hacks.run) · [Playground](https://undevice.hacks.run/playground)**
+
 _Not affiliated with the [UnJS](https://unjs.io/) organization._
 
 ## Install

@@ -10,3 +10,20 @@ coverage/
 
 *.log
 .DS_Store
+
+# Documentation source is tracked; generated output is ignored.
+!/docs/
+/docs/*
+!/docs/index.md
+!/docs/tsconfig.json
+!/docs/playground.md
+!/docs/guide/
+!/docs/ru/
+!/docs/public/
+!/docs/.vitepress/
+# Generated documentation
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/api/
+
+docs/.vitepress/.temp/
