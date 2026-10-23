@@ -2,7 +2,7 @@
 layout: home
 hero:
   name: undevice
-  text: Know the device. Bring your own flags.
+  text: Unified Device Detector
   tagline: Device, OS, and browser detection from headers. Dependency-free, typed, and ready for CDN signals.
   image:
     light: /logo-light.svg
@@ -29,10 +29,26 @@ features:
     details: Configure once. Get a fresh immutable result for every request.
 ---
 
-```ts twoslash
+::: code-group
+
+```ts twoslash [Basic usage]
+import { undevice } from "undevice";
+
+const { detect } = undevice();
+const device = detect({ userAgent: navigator.userAgent });
+
+device.isMobile;
+device.isDesktop;
+device.isWindows;
+device.isChrome;
+```
+
+```ts twoslash [Custom flags]
+// This example uses the third-party library isbot
 import { isbot } from "isbot";
 import { undevice } from "undevice";
 
+// Configure custom flags
 const { detect } = undevice({
   isCrawler: isbot,
   isRawClient: ["curl", "wget"],
@@ -43,6 +59,10 @@ device.isMobile;
 device.isDesktop;
 device.isWindows;
 device.isChrome;
+
+// Use custom flags
 device.isCrawler;
 device.isRawClient;
 ```
+
+:::

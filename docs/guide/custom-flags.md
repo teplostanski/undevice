@@ -2,6 +2,7 @@
 
 Pass an object to `undevice()` to add your own flags. Each key becomes a flag name
 in the result.
+TypeScript automatically infers custom flag names and their `boolean` type.
 
 Each value can be:
 
@@ -11,15 +12,19 @@ Each value can be:
 
 A check function:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 const { detect } = undevice({
-  isCrawler: (ua) => /googlebot/i.test(ua),
+  isCrawler: (ua: string) => /googlebot/i.test(ua),
 });
 ```
 
 An array of substrings:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 const { detect } = undevice({
   isRawClient: ["curl", "wget"],
 });
@@ -27,7 +32,9 @@ const { detect } = undevice({
 
 A check with an array of exclusions:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 import { isbot } from "isbot";
 
 const { detect } = undevice({
@@ -40,11 +47,13 @@ const { detect } = undevice({
 
 An array of substrings in `detect` and a function in `exclude`:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 const { detect } = undevice({
   isCrawler: {
     detect: ["bot", "crawler", "spider"],
-    exclude: (ua) => ua.includes("my-health-checker"),
+    exclude: (ua: string) => ua.includes("my-health-checker"),
   },
 });
 ```
@@ -61,14 +70,14 @@ Use [isbot](https://github.com/omrilotan/isbot) to identify bot User-Agents:
 npm install isbot
 ```
 
-```ts
+```ts twoslash
 import { isbot } from "isbot";
 import { undevice } from "undevice";
 
 const { detect } = undevice({ isCrawler: isbot });
-const device = detect({ headers: request.headers });
+const device = detect({ userAgent: navigator.userAgent });
 
-device.isCrawler; // boolean
+device.isCrawler;
 ```
 
 **isCrawler with crawler-user-agents**
@@ -81,28 +90,18 @@ Compile the regular expressions once when setting up the detector:
 npm install crawler-user-agents
 ```
 
-```ts
+```ts twoslash
+// @resolveJsonModule: true
 import crawlers from "crawler-user-agents" with { type: "json" };
 import { undevice } from "undevice";
 
 const patterns = crawlers.map(({ pattern }) => new RegExp(pattern, "i"));
 
 const { detect } = undevice({
-  isCrawler: (ua) => patterns.some((pattern) => pattern.test(ua)),
+  isCrawler: (ua: string) => patterns.some((pattern) => pattern.test(ua)),
 });
 
-const device = detect({ headers: request.headers });
+const device = detect({ userAgent: navigator.userAgent });
 
-device.isCrawler; // boolean
-```
-
-## Type inference
-
-```ts twoslash
-import { undevice } from "undevice";
-
-const { detect } = undevice({ isRawClient: ["curl", "wget"] });
-const device = detect({ userAgent: "curl/8.0" });
-device.isRawClient;
-//     ^?
+device.isCrawler;
 ```

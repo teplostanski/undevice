@@ -68,6 +68,7 @@
     "@types/node": "^22.20.4",
     "@typescript/native": "npm:typescript@^7.0.2",
     "@vitest/coverage-v8": "^4.1.10",
+    "crawler-user-agents": "^1.62.0",
     "husky": "^9.1.7",
     "isbot": "^5.2.2",
     "publint": "^0.3.22",

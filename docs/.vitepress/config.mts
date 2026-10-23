@@ -134,6 +134,11 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
         },
         outline: { label: 'На этой странице', level: [2, 3] },
         docFooter: { prev: 'Предыдущая страница', next: 'Следующая страница' },
+        footer: {
+          message:
+            'Распространяется по лицензии MIT.<br><em>Проект не связан с организацией <a href="https://unjs.io/">UnJS</a>.</em>',
+          copyright: '© 2026 Теплостанский Игорь',
+        },
         editLink: { pattern: `${repo}/edit/main/docs/:path`, text: 'Редактировать страницу' },
         lastUpdated: { text: 'Обновлено' },
         returnToTopLabel: 'Наверх',
@@ -172,7 +177,8 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
     outline: [2, 3],
     editLink: { pattern: `${repo}/edit/main/docs/:path`, text: 'Edit this page' },
     footer: {
-      message: 'Released under the MIT License.',
+      message:
+        'Released under the MIT License.<br><em>not affiliated with the <a href="https://unjs.io/">unjs</a> org.</em>',
       copyright: 'Copyright © 2026 Teplostanski Igor',
     },
   },

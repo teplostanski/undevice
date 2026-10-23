@@ -6,6 +6,8 @@
 [![codecov][codecov-src]][codecov-href]
 [![size][npm-size-src]][npm-size-href]
 
+**Unified Device Detector**
+
 Device, OS, and browser detection from User-Agent and CDN headers.
 Works in Node.js, browsers, and edge runtimes without framework dependencies.
 

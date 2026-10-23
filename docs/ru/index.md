@@ -2,7 +2,7 @@
 layout: home
 hero:
   name: undevice
-  text: Узнайте устройство. Добавьте свои флаги.
+  text: Единый детектор устройств
   tagline: Определение устройства, ОС и браузера по заголовкам. Без зависимостей, с TypeScript и поддержкой CDN.
   image:
     light: /logo-light.svg
@@ -29,10 +29,26 @@ features:
     details: Настройте один раз. Получайте новый неизменяемый результат для каждого запроса.
 ---
 
-```ts twoslash
+::: code-group
+
+```ts twoslash [Простое использование]
+import { undevice } from "undevice";
+
+const { detect } = undevice();
+const device = detect({ userAgent: navigator.userAgent });
+
+device.isMobile;
+device.isDesktop;
+device.isWindows;
+device.isChrome;
+```
+
+```ts twoslash [Пользовательские флаги]
+// В примере используется сторонняя библиотека isbot
 import { isbot } from "isbot";
 import { undevice } from "undevice";
 
+// Настройка пользовательских флагов
 const { detect } = undevice({
   isCrawler: isbot,
   isRawClient: ["curl", "wget"],
@@ -43,6 +59,10 @@ device.isMobile;
 device.isDesktop;
 device.isWindows;
 device.isChrome;
+
+// Использование пользовательских флагов
 device.isCrawler;
 device.isRawClient;
 ```
+
+:::

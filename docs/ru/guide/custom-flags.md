@@ -2,6 +2,7 @@
 
 Чтобы добавить свои флаги, передайте объект в `undevice()`. Каждый ключ станет именем
 флага в результате.
+TypeScript автоматически выводит имена пользовательских флагов и их тип `boolean`.
 
 Значение каждого ключа может быть:
 
@@ -11,15 +12,19 @@
 
 Функция проверки:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 const { detect } = undevice({
-  isCrawler: (ua) => /googlebot/i.test(ua),
+  isCrawler: (ua: string) => /googlebot/i.test(ua),
 });
 ```
 
 Массив подстрок:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 const { detect } = undevice({
   isRawClient: ["curl", "wget"],
 });
@@ -27,7 +32,9 @@ const { detect } = undevice({
 
 Проверка с исключениями из массива:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 import { isbot } from "isbot";
 
 const { detect } = undevice({
@@ -40,11 +47,13 @@ const { detect } = undevice({
 
 Массив подстрок в `detect` и функция в `exclude`:
 
-```ts
+```ts twoslash
+import { undevice } from "undevice";
+
 const { detect } = undevice({
   isCrawler: {
     detect: ["bot", "crawler", "spider"],
-    exclude: (ua) => ua.includes("my-health-checker"),
+    exclude: (ua: string) => ua.includes("my-health-checker"),
   },
 });
 ```
@@ -61,14 +70,14 @@ const { detect } = undevice({
 npm install isbot
 ```
 
-```ts
+```ts twoslash
 import { isbot } from "isbot";
 import { undevice } from "undevice";
 
 const { detect } = undevice({ isCrawler: isbot });
-const device = detect({ headers: request.headers });
+const device = detect({ userAgent: navigator.userAgent });
 
-device.isCrawler; // boolean
+device.isCrawler;
 ```
 
 **isCrawler с crawler-user-agents**
@@ -81,28 +90,18 @@ device.isCrawler; // boolean
 npm install crawler-user-agents
 ```
 
-```ts
+```ts twoslash
+// @resolveJsonModule: true
 import crawlers from "crawler-user-agents" with { type: "json" };
 import { undevice } from "undevice";
 
 const patterns = crawlers.map(({ pattern }) => new RegExp(pattern, "i"));
 
 const { detect } = undevice({
-  isCrawler: (ua) => patterns.some((pattern) => pattern.test(ua)),
+  isCrawler: (ua: string) => patterns.some((pattern) => pattern.test(ua)),
 });
 
-const device = detect({ headers: request.headers });
+const device = detect({ userAgent: navigator.userAgent });
 
-device.isCrawler; // boolean
-```
-
-## Вывод типов
-
-```ts twoslash
-import { undevice } from "undevice";
-
-const { detect } = undevice({ isRawClient: ["curl", "wget"] });
-const device = detect({ userAgent: "curl/8.0" });
-device.isRawClient;
-//     ^?
+device.isCrawler;
 ```

@@ -28,6 +28,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.1.10
         version: 4.1.12(vitest@4.1.12)
+      crawler-user-agents:
+        specifier: ^1.62.0
+        version: 1.62.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -1427,6 +1430,9 @@ packages:
   copy-anything@4.1.5:
     resolution: {integrity: sha512-vePst2VLTSqPglW7Q98VwFpGiGpOHTyXIo81MO5VyLecA5zMbZw/P/V1vmwD1jksa2iJpn/YkDrJ3XhTfzUyhQ==}
     engines: {node: '>=18'}
+
+  crawler-user-agents@1.62.0:
+    resolution: {integrity: sha512-+KsBJpb95umUgL103/oFwmJBFtUd/MdigqHcAiQBSToCudQNrZ/ogFfXGmQe5LKzJpxw6pJHqnwKPUx+gOiDBA==}
 
   css-declaration-sorter@7.4.0:
     resolution: {integrity: sha512-LTuzjPoyA2vMGKKcaOqKSp7Ub2eGrNfKiZH4LpezxpNrsICGCSFvsQOI29psISxNZtaXibkC2CXzrQ5enMeGGw==}
@@ -3832,6 +3838,8 @@ snapshots:
   convert-source-map@2.0.0: {}
 
   copy-anything@4.1.5: {}
+
+  crawler-user-agents@1.62.0: {}
 
   css-declaration-sorter@7.4.0(postcss@8.5.30):
     dependencies:
