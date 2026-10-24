@@ -1,6 +1,6 @@
 {
   "name": "undevice",
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "description": "Runtime-agnostic user-agent device detector",
   "type": "module",
   "sideEffects": false,
