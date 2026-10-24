@@ -1,5 +1,6 @@
 export type {
   RequestHeaders,
+  UndeviceExtensions,
   UndeviceOptions,
   UndeviceResult,
 } from './core/types.js'

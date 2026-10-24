@@ -107,7 +107,7 @@ An explicit UA replaces the UA source, not all CDN hints:
 
 ## TypeScript and verification
 
-Public types are `RequestHeaders`, `UndeviceOptions`, and `UndeviceResult<T>`. Let the factory infer extension keys from the supplied object; avoid widening them to `Record<string, ...>` before passing it. `UndeviceResult` without a type argument describes built-in flags only. Internal types such as `FlagCheck` and `Extensions` are not package-root exports in this version.
+Public types are `RequestHeaders`, `UndeviceExtensions`, `UndeviceOptions`, and `UndeviceResult<T>`. Let the factory infer extension keys from the supplied object; use `satisfies UndeviceExtensions` to validate checks without widening their keys. `UndeviceResult` without a type argument describes built-in flags only. Internal types such as `FlagCheck` and `FlagExtension` are not package-root exports in this version.
 
 ```ts
 const extensions = { isRawClient: ['curl', 'wget'] };

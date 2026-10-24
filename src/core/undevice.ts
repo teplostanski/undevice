@@ -4,7 +4,7 @@ import { detectDeviceKind, toDeviceKindFlags } from './device-kind.js'
 import { createCustomFlags } from './extensions.js'
 import { normalizeInput } from './normalize.js'
 import { detectOsFlags } from './os.js'
-import type { Extensions, UndeviceOptions, UndeviceResult } from './types.js'
+import type { UndeviceExtensions, UndeviceOptions, UndeviceResult } from './types.js'
 
 /**
  * Creates a reusable detector with optional custom boolean flags.
@@ -16,7 +16,7 @@ import type { Extensions, UndeviceOptions, UndeviceResult } from './types.js'
  * const device = detect({ userAgent: 'curl/8.0' })
  * ```
  */
-export const undevice = <T extends Extensions = Record<never, never>>(extensions?: T) => {
+export const undevice = <T extends UndeviceExtensions = Record<never, never>>(extensions?: T) => {
   const detect = (options: UndeviceOptions): UndeviceResult<T> => {
     const { userAgent, headers } = normalizeInput(options)
     const cdn = resolveCdnHints(userAgent, headers)

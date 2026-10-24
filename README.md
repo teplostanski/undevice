@@ -230,6 +230,31 @@ type RequestHeaders =
   | Readonly<{ get(name: string): string | null }>;
 ```
 
+#### UndeviceExtensions
+
+`UndeviceExtensions` describes custom flag checks passed to `undevice`.
+Each key is a flag name. Its value can be a readonly array of substrings,
+a `(userAgent: string) => boolean` callback, or an object with a required
+`detect` check and an optional `exclude` check. Both checks accept arrays or callbacks.
+
+Use `satisfies UndeviceExtensions` to validate the checks while preserving
+the inferred flag names. A `: UndeviceExtensions` annotation widens the keys to `string`.
+
+```ts
+import { undevice, type UndeviceExtensions } from "undevice";
+
+const extensions = {
+  isRawClient: ["curl", "wget"],
+  isCustomApp: (ua) => ua.includes("my-app"),
+  isEmbedded: { detect: ["webview"], exclude: ["bot"] },
+} satisfies UndeviceExtensions;
+
+const { detect } = undevice(extensions);
+const device = detect({ userAgent: "curl/8.0" });
+
+device.isRawClient; // boolean
+```
+
 #### UndeviceResult
 
 `UndeviceResult<T>` describes the result of `detect`: built-in [flags](#result)

@@ -14,5 +14,10 @@
     "autoConfiguration": true,
     "pretty": true
   },
-  "intentionallyNotExported": ["DeviceKindFlags", "PlatformFlags", "ExtensionFlags", "Extensions"]
+  "intentionallyNotExported": [
+    "DeviceKindFlags",
+    "PlatformFlags",
+    "ExtensionFlags",
+    "FlagExtension"
+  ]
 }

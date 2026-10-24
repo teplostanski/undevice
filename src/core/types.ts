@@ -28,13 +28,14 @@ export type FlagExtension =
       readonly exclude?: FlagCheck
     }
 
-export type Extensions = Record<string, FlagExtension>
+/** Custom flag checks keyed by flag name. Use `satisfies` to preserve inferred keys. */
+export type UndeviceExtensions = Record<string, FlagExtension>
 
-type ExtensionFlags<T extends Extensions> = {
+type ExtensionFlags<T extends UndeviceExtensions> = {
   readonly [K in keyof T]: boolean
 }
 
 /** Immutable built-in flags plus boolean flags inferred from extension keys. */
-export type UndeviceResult<T extends Extensions = Record<never, never>> = DeviceKindFlags &
+export type UndeviceResult<T extends UndeviceExtensions = Record<never, never>> = DeviceKindFlags &
   PlatformFlags &
   ExtensionFlags<T>
