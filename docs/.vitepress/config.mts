@@ -78,8 +78,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
     ['meta', { name: 'theme-color', content: '#ce3300' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'undevice' }],
-    ['meta', { property: 'og:image', content: `${origin}/logo-dark.png` }],
-    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
   ],
   transformPageData(pageData) {
     if (pageData.relativePath.startsWith('api/')) {
@@ -90,9 +89,21 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
   transformHead({ pageData }) {
     const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
     const url = `${origin}/${path}`
+    const isExpress = /^(ru\/)?integrations\/express$/.test(path)
+    const image = `${origin}/${isExpress ? 'og-express' : 'og-docs'}.png`
+    const imageAlt = isExpress
+      ? 'undevice | express. Using undevice in Express apps just got easier.'
+      : 'undevice. Unified Device Detector. Device, OS & browser detection. Bring your own flags.'
     return [
       ['link', { rel: 'canonical', href: url }],
       ['meta', { property: 'og:url', content: url }],
+      ['meta', { property: 'og:image', content: image }],
+      ['meta', { property: 'og:image:type', content: 'image/png' }],
+      ['meta', { property: 'og:image:width', content: '1200' }],
+      ['meta', { property: 'og:image:height', content: '630' }],
+      ['meta', { property: 'og:image:alt', content: imageAlt }],
+      ['meta', { name: 'twitter:image', content: image }],
+      ['meta', { name: 'twitter:image:alt', content: imageAlt }],
       ['meta', { property: 'og:title', content: `${pageData.title || 'undevice'} | undevice` }],
       [
         'meta',

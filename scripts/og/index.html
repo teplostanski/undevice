@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200, initial-scale=1" />
+    <title>undevice social previews</title>
+    <style>
+      @font-face {
+        font-family: Inter;
+        src: url('../../node_modules/vitepress/dist/client/theme-default/fonts/inter-roman-latin.woff2') format('woff2');
+        font-weight: 100 900;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Inter, sans-serif; }
+      .card {
+        width: 1200px; height: 630px; position: relative; overflow: hidden;
+        padding: 32px 48px; background: #18181b; color: #f5f5f6;
+      }
+      .card::after {
+        content: ''; position: absolute; width: 640px; height: 640px;
+        right: -240px; bottom: -380px; border: 1px solid #ff890429;
+        border-radius: 50%; box-shadow: 0 0 0 64px #ff890407, 0 0 0 128px #ff890405;
+      }
+      header { display: flex; height: 128px; align-items: center; justify-content: space-between; }
+      .logo { width: 128px; height: 128px; border-radius: 14px; }
+      .domain { position: absolute; left: 0; right: 0; text-align: center; font-size: 54px; color: #a1a1aa; letter-spacing: -.025em; }
+      .label { font-size: 24px; letter-spacing: .01em; color: #a1a1aa; }
+      main { position: absolute; left: 40px; right: 40px; top: 174px; text-align: center; z-index: 1; }
+      h1 { margin: 0; font-size: 170px; line-height: 1.14; letter-spacing: -6px; font-weight: 750; }
+      .brand { padding-inline: .08em; letter-spacing: -.025em; color: transparent; background: linear-gradient(120deg, #ff8904 25%, #ffb75e); background-clip: text; }
+      h2 { margin: 0; font-size: 52px; letter-spacing: -1.2px; font-weight: 500; }
+      footer { position: absolute; bottom: 34px; left: 48px; right: 48px; font-size: 64px; line-height: 1.18; letter-spacing: -2px; text-align: center; color: #b8b8c0; z-index: 1; }
+      .docs footer { font-size: 56px; }
+      .express { display: none; background: #fff; color: #18181b; }
+      .express::after { border-color: #ce330019; box-shadow: 0 0 0 64px #ce330004, 0 0 0 128px #ce330003; }
+      .express { padding: 40px 48px; }
+      .express header { height: 80px; }
+      .express .logo, .express-logo { width: 80px; height: 80px; }
+      .express .domain { color: #67676c; font-size: 54px; letter-spacing: -.025em; }
+      .express main { top: 200px; }
+      .express h1 { display: flex; gap: 24px; align-items: center; justify-content: center; font-size: 132px; letter-spacing: -4px; white-space: nowrap; }
+      .express .brand { background-image: linear-gradient(120deg, #ce3300 25%, #e66c00); }
+      .separator { font-weight: 250; font-size: 120px; color: #b7b7bc; }
+      .express-name { font-weight: 400; }
+      .express footer { text-align: center; color: #52525b; font-size: 64px; line-height: 1.18; letter-spacing: -2px; bottom: 40px; }
+      html:has(#express:target) .docs { display: none; }
+      #express:target { display: block; }
+    </style>
+  </head>
+  <body>
+    <article class="card docs">
+      <header>
+        <img class="logo" src="../../docs/public/logo-dark.svg" alt="undevice" />
+        <span class="domain">undevice.hacks.run</span>
+        <span class="label">Documentation</span>
+      </header>
+      <main>
+        <h1 class="brand">undevice</h1>
+        <h2>Unified Device Detector</h2>
+      </main>
+      <footer>Device, OS &amp; browser detection.<br />Bring your own flags.</footer>
+    </article>
+    <article class="card express" id="express">
+      <header>
+        <img class="logo" src="../../docs/public/logo-dark.svg" alt="undevice" />
+        <span class="domain">undevice.hacks.run</span>
+        <img class="express-logo" src="./express.svg" alt="Express" />
+      </header>
+      <main>
+        <h1><span class="brand">undevice</span><span class="separator">|</span><span class="express-name">express</span></h1>
+      </main>
+      <footer>Using undevice in Express apps<br />just got easier.</footer>
+    </article>
+  </body>
+</html>
