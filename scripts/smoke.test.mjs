@@ -89,3 +89,16 @@ it('runs a neutral ESM bundle with a custom crawler flag', async () => {
     rmSync(tempDir, { recursive: true, force: true })
   }
 })
+
+it('exports the Express adapter from the package subpath', async () => {
+  const { undevice } = await import('undevice/express')
+  const middleware = undevice({ isRawClient: ['curl'] })
+  const res = { locals: {} }
+  let calls = 0
+  middleware({ headers: { 'user-agent': 'curl/8.0' } }, res, () => {
+    calls += 1
+  })
+  expect(calls).toBe(1)
+  expect(res.locals.undevice.isRawClient).toBe(true)
+  expect(Object.isFrozen(res.locals.undevice)).toBe(true)
+})
