@@ -1,23 +1,21 @@
 # Начало работы
 
-Эта документация описывает API 1.0.0-beta. Установите beta-версию, чтобы использовать фабрику и расширения.
-
 ::: code-group
 
 ```sh [npm]
-npm install undevice@beta
+npm install undevice
 ```
 
 ```sh [pnpm]
-pnpm add undevice@beta
+pnpm add undevice
 ```
 
 ```sh [yarn]
-yarn add undevice@beta
+yarn add undevice
 ```
 
 ```sh [bun]
-bun add undevice@beta
+bun add undevice
 ```
 
 :::

@@ -15,10 +15,25 @@ Works in Node.js, browsers, and edge runtimes without framework dependencies.
 - Cloudflare and CloudFront header support.
 - Custom detection flags.
 - Dependency-free.
+- Integrations: [Express](https://undevice.hacks.run/integrations/express).
 
 **[Documentation](https://undevice.hacks.run) · [Playground](https://undevice.hacks.run/playground)**
 
 _Not affiliated with the [UnJS](https://unjs.io/) organization._
+
+## Contents
+
+- [Install](#install)
+- [Agent skill](#agent-skill)
+- [Usage](#usage)
+  - [Custom flags](#custom-flags)
+- [Integrations](#integrations)
+  - [Express](#express)
+- [CloudFront](#cloudfront)
+- [Cloudflare](#cloudflare)
+- [Compatibility](#compatibility)
+- [Credits](#credits)
+- [License](#license)
 
 ## Install
 
@@ -34,11 +49,15 @@ Install the [undevice skill](skills/undevice/SKILL.md) to help your coding agent
 npx skills add teplostanski/undevice --skill undevice
 ```
 
+For Express middleware and route types, use the [Express skill](skills/undevice-express/SKILL.md).
+
+```sh
+npx skills add teplostanski/undevice --skill undevice-express
+```
+
 ## Usage
 
-### Request headers
-
-Create a detector once, then pass each incoming request's headers to `detect()`:
+Create a detector once, then pass each request's headers to `detect()`:
 
 ```ts
 import { undevice } from "undevice";
@@ -51,226 +70,38 @@ device.isTablet;
 device.isDesktop;
 ```
 
-`undevice()` returns a frozen object with a `detect` method. Each call to `detect()`
-returns a new frozen [UndeviceResult](#undeviceresult) with detection [flags](#result).
-
-The library does not mutate input data or implicitly access request context or browser globals.
-
-### User-Agent
-
-In the browser, pass `navigator.userAgent`:
-
-```ts
-import { undevice } from "undevice";
-
-const { detect } = undevice();
-const device = detect({ userAgent: navigator.userAgent });
-```
-
-To override the User-Agent:
-
-```ts
-const device = detect({
-  headers: request.headers,
-  userAgent: customUserAgent,
-});
-```
-
-For SSR, reuse the server's result on the client to avoid hydration mismatches.
-
-### Options
-
-`detect(options)` accepts the options below. Pass `{}` without headers
-or a User-Agent to get an unknown device type.
-
-```ts
-type UndeviceOptions = Readonly<{
-  headers?: RequestHeaders;
-  userAgent?: string;
-}>;
-```
-
-| Option | Type | Default | Description |
-| --- | --- | --- | --- |
-| `headers` | [`RequestHeaders`](#requestheaders) | `undefined` | Request headers. Accepts a standard [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance or a plain record, including Node.js request headers. |
-| `userAgent` | `string` | From `headers` | Used instead of the `user-agent` header value. Also supports standalone UA detection. |
-
-### Result
-
-[`UndeviceResult`](#undeviceresult) contains the following built-in boolean flags:
-
-| Group | Flags |
-| --- | --- |
-| Device | `isMobile`, `isTablet`, `isDesktop`, `isUnknown` |
-| Combined | `isMobileOrTablet`, `isDesktopOrTablet` |
-| OS | `isIos`, `isAndroid`, `isWindows`, `isMacOS`, `isLinux`, `isApple` |
-| Browser | `isChrome`, `isFirefox`, `isSafari`, `isEdge`, `isSamsung` |
-
-`isUnknown` is `true` when the input does not resolve to a device type.
-Custom flags are added to the same result object.
+See the [documentation](https://undevice.hacks.run/guide/getting-started) for input options, flags, and API details.
 
 ### Custom flags
 
-Pass an object to `undevice()` to add your own flags. Each key becomes a flag name
-in the result.
-
-Each value can be:
-
-- A function `(ua: string) => boolean`. It receives the User-Agent trimmed and converted to lowercase.
-- An array of strings for case-insensitive substring matching against the User-Agent. The check returns `true` if at least one substring matches. Special characters such as `.` and `*` are treated literally.
-- An object with a required `detect` and an optional `exclude`. Both fields accept a function or an array of strings. If `exclude` returns `true`, the flag is set to `false` and `detect` is skipped. Otherwise, the flag takes the result of `detect`.
-
-A check function:
-
 ```ts
-const { detect } = undevice({
-  isCrawler: (ua) => /googlebot/i.test(ua),
-});
-```
-
-An array of substrings:
-
-```ts
-const { detect } = undevice({
-  isRawClient: ["curl", "wget"],
-});
-```
-
-A check with an array of exclusions:
-
-```ts
-import { isbot } from "isbot";
-
-const { detect } = undevice({
-  isCrawler: {
-    detect: isbot,
-    exclude: ["curl", "wget"],
-  },
-});
-```
-
-An array of substrings in `detect` and a function in `exclude`:
-
-```ts
-const { detect } = undevice({
-  isCrawler: {
-    detect: ["bot", "crawler", "spider"],
-    exclude: (ua) => ua.includes("my-health-checker"),
-  },
-});
-```
-
-#### Examples with third-party libraries
-
-You can use a function from a third-party library as a check or use its data in your own callback. The examples below use `isbot` and `crawler-user-agents`.
-
-**isCrawler with isbot**
-
-Use [isbot](https://github.com/omrilotan/isbot) to identify bot User-Agents:
-
-```bash
-npm install isbot
-```
-
-```ts
-import { isbot } from "isbot";
 import { undevice } from "undevice";
 
-const { detect } = undevice({ isCrawler: isbot });
-const device = detect({ headers: request.headers });
-
-device.isCrawler; // boolean
-```
-
-**isCrawler with crawler-user-agents**
-
-You can also build a check from the patterns in
-[crawler-user-agents](https://github.com/monperrus/crawler-user-agents).
-Compile the regular expressions once when setting up the detector:
-
-```bash
-npm install crawler-user-agents
-```
-
-```ts
-import crawlers from "crawler-user-agents" with { type: "json" };
-import { undevice } from "undevice";
-
-const patterns = crawlers.map(({ pattern }) => new RegExp(pattern, "i"));
-
-const { detect } = undevice({
-  isCrawler: (ua) => patterns.some((pattern) => pattern.test(ua)),
-});
-
-const device = detect({ headers: request.headers });
-
-device.isCrawler; // boolean
-```
-
-### Types
-
-#### UndeviceOptions
-
-Options for `detect`, with optional User-Agent and [request headers](#requestheaders).
-
-```ts
-type UndeviceOptions = Readonly<{
-  userAgent?: string;
-  headers?: RequestHeaders;
-}>;
-```
-
-#### RequestHeaders
-
-A header record or an object with a `get()` method compatible with standard [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers):
-
-```ts
-type RequestHeaders =
-  | Readonly<Record<string, string | readonly string[] | undefined>>
-  | Readonly<{ get(name: string): string | null }>;
-```
-
-#### UndeviceExtensions
-
-`UndeviceExtensions` describes custom flag checks passed to `undevice`.
-Each key is a flag name. Its value can be a readonly array of substrings,
-a `(userAgent: string) => boolean` callback, or an object with a required
-`detect` check and an optional `exclude` check. Both checks accept arrays or callbacks.
-
-Use `satisfies UndeviceExtensions` to validate the checks while preserving
-the inferred flag names. A `: UndeviceExtensions` annotation widens the keys to `string`.
-
-```ts
-import { undevice, type UndeviceExtensions } from "undevice";
-
-const extensions = {
-  isRawClient: ["curl", "wget"],
-  isCustomApp: (ua) => ua.includes("my-app"),
-  isEmbedded: { detect: ["webview"], exclude: ["bot"] },
-} satisfies UndeviceExtensions;
-
-const { detect } = undevice(extensions);
+const { detect } = undevice({ isRawClient: ["curl", "wget"] });
 const device = detect({ userAgent: "curl/8.0" });
 
-device.isRawClient; // boolean
+device.isRawClient; // true
 ```
 
-#### UndeviceResult
+See [Custom flags](https://undevice.hacks.run/guide/custom-flags) for callbacks, exclusions, and more examples.
 
-`UndeviceResult<T>` describes the result of `detect`: built-in [flags](#result)
-and readonly boolean flags for each key in the extensions type `T`.
-The factory infers `T` from the supplied checks. Without a type argument,
-`UndeviceResult` describes a result with no custom flags.
+## Integrations
+
+### Express
 
 ```ts
-import type { UndeviceResult } from "undevice";
+import express from "express";
+import { undevice } from "undevice/express";
 
-const extensions = {
-  isRawClient: (ua: string) => /curl|wget/i.test(ua),
-};
+const app = express();
+app.use(undevice());
 
-type Device = UndeviceResult<typeof extensions>;
+app.get("/device", (_req, res) => {
+  res.json(res.locals.undevice);
+});
 ```
+
+See the [Express guide](https://undevice.hacks.run/integrations/express) for custom flags and TypeScript declarations.
 
 ## CloudFront
 

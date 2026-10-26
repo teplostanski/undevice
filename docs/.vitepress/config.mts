@@ -31,12 +31,16 @@ const sidebar = (ru = false) => {
           link: `${prefix}/guide/custom-flags`,
         },
         { text: 'CDN', link: `${prefix}/guide/cdn` },
-        {
-          text: ru ? 'Интеграции и SSR' : 'Integrations and SSR',
-          link: `${prefix}/guide/integrations`,
-        },
         { text: ru ? 'Скилл для агента' : 'Agent skill', link: `${prefix}/guide/agent-skill` },
         { text: ru ? 'Песочница' : 'Playground', link: `${prefix}/playground` },
+      ],
+    },
+    {
+      text: ru ? 'Интеграции' : 'Integrations',
+      items: [
+        { text: ru ? 'Обзор' : 'Overview', link: `${prefix}/integrations/` },
+        { text: 'Express', link: `${prefix}/integrations/express` },
+        { text: ru ? 'API ядра и SSR' : 'Core API and SSR', link: `${prefix}/guide/integrations` },
       ],
     },
     { text: 'API', items: apiSidebar },
@@ -106,6 +110,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       themeConfig: {
         nav: [
           { text: 'Guide', link: '/guide/getting-started' },
+          { text: 'Integrations', link: '/integrations/' },
           { text: 'API', link: '/api/' },
           { text: 'Playground', link: '/playground' },
           { text: version, link: `${repo}/releases` },
@@ -121,6 +126,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       themeConfig: {
         nav: [
           { text: 'Руководство', link: '/ru/guide/getting-started' },
+          { text: 'Интеграции', link: '/ru/integrations/' },
           { text: 'API', link: '/api/' },
           { text: 'Песочница', link: '/ru/playground' },
           { text: version, link: `${repo}/releases` },

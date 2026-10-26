@@ -4,6 +4,6 @@
 
 <DevicePlayground />
 
-Здесь подключены пользовательские флаги `isRawClient` (curl или wget) и `isCrawler` (только Googlebot). Поле User-Agent можно изменить вручную: например, введите `wget/1.21.4`, чтобы увидеть `isRawClient: true`.
+Здесь подключены пользовательские флаги `isRawClient` (curl или wget) и `isCrawler` (только Googlebot).
 
 Это примеры проверок, а не полный каталог ботов. CDN-заголовки в этой песочнице не используются.

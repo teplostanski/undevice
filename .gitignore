@@ -18,6 +18,7 @@ coverage/
 !/docs/tsconfig.json
 !/docs/playground.md
 !/docs/guide/
+!/docs/integrations/
 !/docs/ru/
 !/docs/public/
 !/docs/.vitepress/

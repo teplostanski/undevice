@@ -1,23 +1,21 @@
 # Getting started
 
-These docs describe the 1.0.0-beta API. Install the beta release to use the factory and extensions.
-
 ::: code-group
 
 ```sh [npm]
-npm install undevice@beta
+npm install undevice
 ```
 
 ```sh [pnpm]
-pnpm add undevice@beta
+pnpm add undevice
 ```
 
 ```sh [yarn]
-yarn add undevice@beta
+yarn add undevice
 ```
 
 ```sh [bun]
-bun add undevice@beta
+bun add undevice
 ```
 
 :::

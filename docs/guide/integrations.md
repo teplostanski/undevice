@@ -1,8 +1,8 @@
-# Integrations and SSR
+# Core API and SSR
 
-Create the detector outside the request handler. Keep each result local to its request. The examples below use the core API directly; no framework adapter package is required.
+Create the detector outside the request handler and keep each result local to its request. For Express middleware, see [Express](/integrations/express).
 
-## Express and Fastify
+## Core API with Express and Fastify
 
 Both expose a Node.js header record as `request.headers`. Use it in your existing route:
 

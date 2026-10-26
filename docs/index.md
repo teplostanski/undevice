@@ -16,17 +16,22 @@ hero:
       text: Try it live
       link: /playground
     - theme: alt
+      text: Integrations
+      link: /integrations/
+    - theme: alt
       text: GitHub
       link: https://github.com/teplostanski/undevice
 features:
   - title: Any runtime
     details: Node.js, browser, or edge. You supply the input; undevice returns the flags.
-  - title: Your checks
-    details: Callbacks, substring arrays, and exclusions. Custom flags with inferred types.
+  - title: Custom flags
+    details: Add your own device detection flags with automatic type inference.
   - title: CDN-aware
     details: Cloudflare and CloudFront hints with explicit precedence over User-Agent.
-  - title: One detector
-    details: Configure once. Get a fresh immutable result for every request.
+  - title: Integrations
+    details: Ready-to-use Express middleware with typed flags in route handlers.
+    link: /integrations/
+    linkText: Explore integrations
 ---
 
 ::: code-group

@@ -16,17 +16,22 @@ hero:
       text: Попробовать
       link: /ru/playground
     - theme: alt
+      text: Интеграции
+      link: /ru/integrations/
+    - theme: alt
       text: GitHub
       link: https://github.com/teplostanski/undevice
 features:
   - title: Любая среда
     details: Node.js, браузер или edge. Вы передаёте данные, undevice возвращает флаги.
-  - title: Ваши проверки
-    details: Коллбэки, массивы подстрок и исключения. Кастомные флаги с выводом типов.
+  - title: Кастомные флаги
+    details: Добавляйте собственные флаги определения устройства с автоматическим выводом типов.
   - title: Сигналы CDN
     details: Cloudflare и CloudFront с определённым приоритетом над User-Agent.
-  - title: Один детектор
-    details: Настройте один раз. Получайте новый неизменяемый результат для каждого запроса.
+  - title: Интеграции
+    details: Готовая middleware для Express с типизированными флагами в обработчиках маршрутов.
+    link: /ru/integrations/
+    linkText: Все интеграции
 ---
 
 ::: code-group
