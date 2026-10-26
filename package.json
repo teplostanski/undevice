@@ -88,7 +88,7 @@
     "@biomejs/biome": "2.5.14",
     "@shikijs/vitepress-twoslash": "^2.5.0",
     "@types/express": "^5.0.6",
-    "@types/node": "^22.20.4",
+    "@types/node": "^26.6.5",
     "@typescript/native": "npm:typescript@^7.0.2",
     "@vitest/coverage-v8": "^4.1.10",
     "crawler-user-agents": "^1.62.0",
