@@ -1,6 +1,6 @@
 {
   "name": "undevice",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Runtime-agnostic user-agent device detector",
   "type": "module",
   "sideEffects": false,
@@ -31,6 +31,10 @@
   },
   "types": "./dist/index.d.mts",
   "exports": {
+    "./express": {
+      "types": "./dist/express/index.d.mts",
+      "import": "./dist/express/index.mjs"
+    },
     ".": {
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
@@ -60,15 +64,35 @@
     "user-agent",
     "device",
     "device-detection",
+    "browser-detection",
+    "os-detection",
+    "mobile-detection",
+    "express",
+    "middleware",
+    "cloudflare",
+    "cloudfront",
+    "cdn",
+    "typescript",
+    "ssr",
     "runtime-agnostic"
   ],
+  "peerDependencies": {
+    "express": "^4.18.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
     "@shikijs/vitepress-twoslash": "^2.5.0",
+    "@types/express": "^5.0.6",
     "@types/node": "^22.20.4",
     "@typescript/native": "npm:typescript@^7.0.2",
     "@vitest/coverage-v8": "^4.1.10",
     "crawler-user-agents": "^1.62.0",
+    "express": "^5.3.0",
     "husky": "^9.1.7",
     "isbot": "^5.2.2",
     "publint": "^0.3.22",

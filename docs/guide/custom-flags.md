@@ -60,8 +60,6 @@ const { detect } = undevice({
 
 #### Examples with third-party libraries
 
-You can use a function from a third-party library as a check or use its data in your own callback. The examples below use `isbot` and `crawler-user-agents`.
-
 **isCrawler with isbot**
 
 Use [isbot](https://github.com/omrilotan/isbot) to identify bot User-Agents:

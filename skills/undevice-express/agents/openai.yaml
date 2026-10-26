@@ -1,0 +1,4 @@
+interface:
+  display_name: "undevice Express"
+  short_description: "Configure Express middleware and typed device flags"
+  default_prompt: "Use $undevice-express to integrate typed device detection into this Express application."

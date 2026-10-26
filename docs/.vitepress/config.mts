@@ -31,12 +31,16 @@ const sidebar = (ru = false) => {
           link: `${prefix}/guide/custom-flags`,
         },
         { text: 'CDN', link: `${prefix}/guide/cdn` },
-        {
-          text: ru ? 'Интеграции и SSR' : 'Integrations and SSR',
-          link: `${prefix}/guide/integrations`,
-        },
         { text: ru ? 'Скилл для агента' : 'Agent skill', link: `${prefix}/guide/agent-skill` },
         { text: ru ? 'Песочница' : 'Playground', link: `${prefix}/playground` },
+      ],
+    },
+    {
+      text: ru ? 'Интеграции' : 'Integrations',
+      items: [
+        { text: ru ? 'Обзор' : 'Overview', link: `${prefix}/integrations/` },
+        { text: 'Express', link: `${prefix}/integrations/express` },
+        { text: ru ? 'API ядра и SSR' : 'Core API and SSR', link: `${prefix}/guide/integrations` },
       ],
     },
     { text: 'API', items: apiSidebar },
@@ -74,8 +78,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
     ['meta', { name: 'theme-color', content: '#ce3300' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'undevice' }],
-    ['meta', { property: 'og:image', content: `${origin}/logo-dark.png` }],
-    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
   ],
   transformPageData(pageData) {
     if (pageData.relativePath.startsWith('api/')) {
@@ -86,9 +89,21 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
   transformHead({ pageData }) {
     const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
     const url = `${origin}/${path}`
+    const isExpress = /^(ru\/)?integrations\/express$/.test(path)
+    const image = `${origin}/${isExpress ? 'og-express' : 'og-docs'}.png`
+    const imageAlt = isExpress
+      ? 'undevice | express. Using undevice in Express apps just got easier.'
+      : 'undevice. Unified Device Detector. Device, OS & browser detection. Bring your own flags.'
     return [
       ['link', { rel: 'canonical', href: url }],
       ['meta', { property: 'og:url', content: url }],
+      ['meta', { property: 'og:image', content: image }],
+      ['meta', { property: 'og:image:type', content: 'image/png' }],
+      ['meta', { property: 'og:image:width', content: '1200' }],
+      ['meta', { property: 'og:image:height', content: '630' }],
+      ['meta', { property: 'og:image:alt', content: imageAlt }],
+      ['meta', { name: 'twitter:image', content: image }],
+      ['meta', { name: 'twitter:image:alt', content: imageAlt }],
       ['meta', { property: 'og:title', content: `${pageData.title || 'undevice'} | undevice` }],
       [
         'meta',
@@ -106,6 +121,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       themeConfig: {
         nav: [
           { text: 'Guide', link: '/guide/getting-started' },
+          { text: 'Integrations', link: '/integrations/' },
           { text: 'API', link: '/api/' },
           { text: 'Playground', link: '/playground' },
           { text: version, link: `${repo}/releases` },
@@ -121,6 +137,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       themeConfig: {
         nav: [
           { text: 'Руководство', link: '/ru/guide/getting-started' },
+          { text: 'Интеграции', link: '/ru/integrations/' },
           { text: 'API', link: '/api/' },
           { text: 'Песочница', link: '/ru/playground' },
           { text: version, link: `${repo}/releases` },
