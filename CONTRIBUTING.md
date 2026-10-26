@@ -65,8 +65,9 @@ full bundle contain English docs; per-page Markdown is available in both languag
 
 CI builds the site on Node.js 24. To host on GitHub Pages, select GitHub Actions as
 the Pages source, configure the custom domain `undevice.hacks.run`, and point its
-DNS CNAME to `teplostanski.github.io`. Then run the separate **docs** workflow from
-`main`. The workflow is manual so a package release does not publish the site.
+DNS CNAME to `teplostanski.github.io`. The **docs** workflow builds and deploys the site on every push to `main`
+and also supports manual runs from `main`. Pushing a release tag alone does not
+trigger documentation deployment.
 Enable HTTPS once GitHub has provisioned the certificate. DNS and repository Pages
 settings must be configured by the repository owner.
 
