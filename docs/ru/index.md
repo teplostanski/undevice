@@ -16,8 +16,8 @@ hero:
       text: Попробовать
       link: /ru/playground
     - theme: alt
-      text: Интеграции
-      link: /ru/integrations/
+      text: Адаптеры
+      link: /ru/adapters/
     - theme: alt
       text: GitHub
       link: https://github.com/teplostanski/undevice
@@ -28,10 +28,10 @@ features:
     details: Добавляйте собственные флаги определения устройства с автоматическим выводом типов.
   - title: Сигналы CDN
     details: Cloudflare и CloudFront с определённым приоритетом над User-Agent.
-  - title: Интеграции
-    details: Готовая middleware для Express с типизированными флагами в обработчиках маршрутов.
-    link: /ru/integrations/
-    linkText: Все интеграции
+  - title: Адаптеры
+    details: Готовые middleware для Express и плагин Fastify с типизированными флагами в обработчиках маршрутов.
+    link: /ru/adapters/
+    linkText: Все адаптеры
 ---
 
 ::: code-group

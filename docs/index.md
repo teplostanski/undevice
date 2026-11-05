@@ -16,8 +16,8 @@ hero:
       text: Try it live
       link: /playground
     - theme: alt
-      text: Integrations
-      link: /integrations/
+      text: Adapters
+      link: /adapters/
     - theme: alt
       text: GitHub
       link: https://github.com/teplostanski/undevice
@@ -28,10 +28,10 @@ features:
     details: Add your own device detection flags with automatic type inference.
   - title: CDN-aware
     details: Cloudflare and CloudFront hints with explicit precedence over User-Agent.
-  - title: Integrations
-    details: Ready-to-use Express middleware with typed flags in route handlers.
-    link: /integrations/
-    linkText: Explore integrations
+  - title: Adapters
+    details: Ready-to-use Express middleware and Fastify plugin with typed flags in route handlers.
+    link: /adapters/
+    linkText: Explore adapters
 ---
 
 ::: code-group

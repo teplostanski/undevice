@@ -81,4 +81,4 @@ Include the declaration file in the application's TypeScript project. Augment `U
 
 Use the application's typecheck to verify built-in and custom flags in an unannotated route handler. Check middleware registration order and request-specific results with its existing test tools. For missing custom types, inspect the declaration file's inclusion, module specifier, and inferred middleware type.
 
-[Express documentation](https://undevice.hacks.run/integrations/express)
+[Express documentation](https://undevice.hacks.run/adapters/express)

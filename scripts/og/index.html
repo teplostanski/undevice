@@ -31,20 +31,20 @@
       h2 { margin: 0; font-size: 52px; letter-spacing: -1.2px; font-weight: 500; }
       footer { position: absolute; bottom: 34px; left: 48px; right: 48px; font-size: 64px; line-height: 1.18; letter-spacing: -2px; text-align: center; color: #b8b8c0; z-index: 1; }
       .docs footer { font-size: 56px; }
-      .express { display: none; background: #fff; color: #18181b; }
-      .express::after { border-color: #ce330019; box-shadow: 0 0 0 64px #ce330004, 0 0 0 128px #ce330003; }
-      .express { padding: 40px 48px; }
-      .express header { height: 80px; }
-      .express .logo, .express-logo { width: 80px; height: 80px; }
-      .express .domain { color: #67676c; font-size: 54px; letter-spacing: -.025em; }
-      .express main { top: 200px; }
-      .express h1 { display: flex; gap: 24px; align-items: center; justify-content: center; font-size: 132px; letter-spacing: -4px; white-space: nowrap; }
-      .express .brand { background-image: linear-gradient(120deg, #ce3300 25%, #e66c00); }
+      .adapter { display: none; background: #fff; color: #18181b; }
+      .adapter::after { border-color: #ce330019; box-shadow: 0 0 0 64px #ce330004, 0 0 0 128px #ce330003; }
+      .adapter { padding: 40px 48px; }
+      .adapter header { height: 80px; }
+      .adapter .logo, .adapter-logo { width: 80px; height: 80px; }
+      .adapter .domain { color: #67676c; font-size: 54px; letter-spacing: -.025em; }
+      .adapter main { top: 200px; }
+      .adapter h1 { display: flex; gap: 24px; align-items: center; justify-content: center; font-size: 132px; letter-spacing: -4px; white-space: nowrap; }
+      .adapter .brand { background-image: linear-gradient(120deg, #ce3300 25%, #e66c00); }
       .separator { font-weight: 250; font-size: 120px; color: #b7b7bc; }
-      .express-name { font-weight: 400; }
-      .express footer { text-align: center; color: #52525b; font-size: 64px; line-height: 1.18; letter-spacing: -2px; bottom: 40px; }
-      html:has(#express:target) .docs { display: none; }
-      #express:target { display: block; }
+      .adapter-name { font-weight: 400; }
+      .adapter footer { text-align: center; color: #52525b; font-size: 64px; line-height: 1.18; letter-spacing: -2px; bottom: 40px; }
+      html:has(#express:target, #fastify:target) .docs { display: none; }
+      #express:target, #fastify:target { display: block; }
     </style>
   </head>
   <body>
@@ -60,16 +60,27 @@
       </main>
       <footer>Device, OS &amp; browser detection.<br />Bring your own flags.</footer>
     </article>
-    <article class="card express" id="express">
+    <article class="card adapter" id="express">
       <header>
         <img class="logo" src="../../docs/public/logo-dark.svg" alt="undevice" />
         <span class="domain">undevice.hacks.run</span>
-        <img class="express-logo" src="./express.svg" alt="Express" />
+        <img class="adapter-logo" src="./express.svg" alt="Express" />
       </header>
       <main>
-        <h1><span class="brand">undevice</span><span class="separator">|</span><span class="express-name">express</span></h1>
+        <h1><span class="brand">undevice</span><span class="separator">|</span><span class="adapter-name">express</span></h1>
       </main>
       <footer>Using undevice in Express apps<br />just got easier.</footer>
+    </article>
+    <article class="card adapter" id="fastify">
+      <header>
+        <img class="logo" src="../../docs/public/logo-dark.svg" alt="undevice" />
+        <span class="domain">undevice.hacks.run</span>
+        <img class="adapter-logo" src="./fastify.svg" alt="Fastify" />
+      </header>
+      <main>
+        <h1><span class="brand">undevice</span><span class="separator">|</span><span class="adapter-name">fastify</span></h1>
+      </main>
+      <footer>Using undevice in Fastify apps<br />just got easier.</footer>
     </article>
   </body>
 </html>

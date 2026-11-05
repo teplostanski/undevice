@@ -12,6 +12,12 @@ For Express middleware and route types, use [undevice-express](https://github.co
 npx skills add teplostanski/undevice --skill undevice-express
 ```
 
+For Fastify plugins and route types, use [undevice-fastify](https://github.com/teplostanski/undevice/tree/main/skills/undevice-fastify).
+
+```sh
+npx skills add teplostanski/undevice --skill undevice-fastify
+```
+
 [Skill source](https://github.com/teplostanski/undevice/tree/main/skills/undevice).
 
 Machine-readable documentation is available as [llms.txt](/llms.txt) and [llms-full.txt](/llms-full.txt).

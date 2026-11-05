@@ -1,29 +1,23 @@
 import type { RequestHandler } from 'express'
-import { undevice as core, type UndeviceExtensions, type UndeviceResult } from '../index.js'
+import type {
+  UndeviceAdapter,
+  UndeviceAdapterFlags,
+  UndeviceAdapterResult,
+} from '../adapters/types.js'
+import { undevice as core, type UndeviceExtensions } from '../index.js'
 
-/** Extend this interface in the application to declare its custom boolean flags. */
-// biome-ignore lint/suspicious/noEmptyInterface: Public extension point for module augmentation.
-export interface UndeviceCustomFlags {}
+export type { UndeviceCustomFlags } from '../adapters/types.js'
 
-declare const customFlags: unique symbol
-
-/** Carries custom flag types without adding properties at runtime. */
 export type UndeviceMiddleware<T extends UndeviceExtensions = Record<never, never>> =
-  RequestHandler & {
-    readonly [customFlags]?: { readonly [K in keyof T]: boolean }
-  }
+  UndeviceAdapter<RequestHandler, T>
 
 /** Extracts custom boolean flags from a configured middleware. */
-export type UndeviceMiddlewareFlags<T extends RequestHandler> = T extends {
-  readonly [customFlags]?: infer Flags
-}
-  ? NonNullable<Flags>
-  : never
+export type UndeviceMiddlewareFlags<T extends RequestHandler> = UndeviceAdapterFlags<T>
 
 declare global {
   namespace Express {
     interface Locals {
-      undevice: UndeviceResult & UndeviceCustomFlags
+      undevice: UndeviceAdapterResult
     }
   }
 }

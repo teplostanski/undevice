@@ -36,11 +36,12 @@ const sidebar = (ru = false) => {
       ],
     },
     {
-      text: ru ? 'Интеграции' : 'Integrations',
+      text: ru ? 'Адаптеры' : 'Adapters',
       items: [
-        { text: ru ? 'Обзор' : 'Overview', link: `${prefix}/integrations/` },
-        { text: 'Express', link: `${prefix}/integrations/express` },
-        { text: ru ? 'API ядра и SSR' : 'Core API and SSR', link: `${prefix}/guide/integrations` },
+        { text: ru ? 'Обзор' : 'Overview', link: `${prefix}/adapters/` },
+        { text: 'Express', link: `${prefix}/adapters/express` },
+        { text: 'Fastify', link: `${prefix}/adapters/fastify` },
+        { text: ru ? 'API ядра и SSR' : 'Core API and SSR', link: `${prefix}/guide/adapters` },
       ],
     },
     { text: 'API', items: apiSidebar },
@@ -89,10 +90,11 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
   transformHead({ pageData }) {
     const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
     const url = `${origin}/${path}`
-    const isExpress = /^(ru\/)?integrations\/express$/.test(path)
-    const image = `${origin}/${isExpress ? 'og-express' : 'og-docs'}.png`
-    const imageAlt = isExpress
-      ? 'undevice | express. Using undevice in Express apps just got easier.'
+    const adapter = /^(?:ru\/)?adapters\/(express|fastify)$/.exec(path)?.[1]
+    const adapterName = adapter === 'fastify' ? 'Fastify' : 'Express'
+    const image = `${origin}/${adapter ? `og-${adapter}` : 'og-docs'}.png`
+    const imageAlt = adapter
+      ? `undevice | ${adapter}. Using undevice in ${adapterName} apps just got easier.`
       : 'undevice. Unified Device Detector. Device, OS & browser detection. Bring your own flags.'
     return [
       ['link', { rel: 'canonical', href: url }],
@@ -121,7 +123,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       themeConfig: {
         nav: [
           { text: 'Guide', link: '/guide/getting-started' },
-          { text: 'Integrations', link: '/integrations/' },
+          { text: 'Adapters', link: '/adapters/' },
           { text: 'API', link: '/api/' },
           { text: 'Playground', link: '/playground' },
           { text: version, link: `${repo}/releases` },
@@ -137,7 +139,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       themeConfig: {
         nav: [
           { text: 'Руководство', link: '/ru/guide/getting-started' },
-          { text: 'Интеграции', link: '/ru/integrations/' },
+          { text: 'Адаптеры', link: '/ru/adapters/' },
           { text: 'API', link: '/api/' },
           { text: 'Песочница', link: '/ru/playground' },
           { text: version, link: `${repo}/releases` },
