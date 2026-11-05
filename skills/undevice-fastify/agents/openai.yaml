@@ -1,0 +1,4 @@
+interface:
+  display_name: "undevice Fastify"
+  short_description: "Configure Fastify plugins and typed device flags"
+  default_prompt: "Use $undevice-fastify to add typed device detection to this Fastify application."

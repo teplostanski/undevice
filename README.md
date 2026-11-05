@@ -56,6 +56,12 @@ For Express middleware and route types, use the [Express skill](skills/undevice-
 npx skills add teplostanski/undevice --skill undevice-express
 ```
 
+For Fastify plugins and route types, use the [Fastify skill](skills/undevice-fastify/SKILL.md).
+
+```sh
+npx skills add teplostanski/undevice --skill undevice-fastify
+```
+
 ## Usage
 
 Create a detector once, then pass each request's headers to `detect()`:

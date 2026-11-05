@@ -12,6 +12,12 @@ npx skills add teplostanski/undevice --skill undevice
 npx skills add teplostanski/undevice --skill undevice-express
 ```
 
+Для плагина Fastify и типизации флагов в маршрутах используйте [undevice-fastify](https://github.com/teplostanski/undevice/tree/main/skills/undevice-fastify).
+
+```sh
+npx skills add teplostanski/undevice --skill undevice-fastify
+```
+
 [Исходный скилл](https://github.com/teplostanski/undevice/tree/main/skills/undevice).
 
 Для загрузки документации агентом доступны [llms.txt](/llms.txt) и [llms-full.txt](/llms-full.txt).
