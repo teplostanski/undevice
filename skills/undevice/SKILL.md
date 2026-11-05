@@ -5,7 +5,7 @@ description: Integrate undevice into JavaScript and TypeScript applications to d
 
 # undevice
 
-Use the application's installed undevice version and existing request flow. This skill describes the 1.x factory API. Check the project's package manifest, lockfile, and installed declarations before changing an existing integration. Version 0.x uses a different API; do not silently upgrade it or mix the two APIs. For new installations, use the project's package manager to install `undevice`. The Express adapter is available from 1.1.0.
+Use the application's installed undevice version and existing request flow. This skill describes the 1.x factory API. Check the project's package manifest, lockfile, and installed declarations before changing an existing adapter. Version 0.x uses a different API; do not silently upgrade it or mix the two APIs. For new installations, use the project's package manager to install `undevice`. The Express adapter is available from 1.1.0.
 
 ## Detection
 
@@ -93,7 +93,7 @@ Use the framework's existing request object as the input boundary:
 - Astro: pass `Astro.request.headers` in server-rendered code, or `context.request.headers` in middleware/endpoints.
 - Fetch-based handlers and edge runtimes: pass `request.headers` directly.
 
-For Express middleware, check installed exports for `undevice/express` and follow the [Express guide](https://undevice.hacks.run/integrations/express). The adapter populates `res.locals.undevice`. Do not invent adapters such as `undevice/fastify` or `undevice/astro`.
+For Express middleware, check installed exports for `undevice/express` and follow the [Express guide](https://undevice.hacks.run/adapters/express). The adapter populates `res.locals.undevice`. For Fastify, check installed exports for `undevice/fastify` and follow the [Fastify guide](https://undevice.hacks.run/adapters/fastify). Do not invent adapters such as `undevice/astro`.
 
 Keep the configured detector reusable, but keep each result local to its request. Attach results to framework locals/context only through that framework's supported mechanism, including its TypeScript augmentation when needed. For SSR, pass the server result to the client for the initial render so hydration uses the same flags. Static rendering has no per-visitor request headers; browser detection must run on the client when appropriate to the requested behavior.
 

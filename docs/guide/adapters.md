@@ -1,6 +1,6 @@
 # Core API and SSR
 
-Create the detector outside the request handler and keep each result local to its request. For Express middleware, see [Express](/integrations/express).
+Create the detector outside the request handler and keep each result local to its request. For ready-to-use adapters, see [Express](/adapters/express) and [Fastify](/adapters/fastify).
 
 ## Core API with Express and Fastify
 

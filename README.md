@@ -15,7 +15,7 @@ Works in Node.js, browsers, and edge runtimes without framework dependencies.
 - Cloudflare and CloudFront header support.
 - Custom detection flags.
 - Dependency-free.
-- Integrations: [Express](https://undevice.hacks.run/integrations/express).
+- Adapters: [Express](https://undevice.hacks.run/adapters/express), [Fastify](https://undevice.hacks.run/adapters/fastify).
 
 **[Documentation](https://undevice.hacks.run) · [Playground](https://undevice.hacks.run/playground)**
 
@@ -27,8 +27,9 @@ _Not affiliated with the [UnJS](https://unjs.io/) organization._
 - [Agent skill](#agent-skill)
 - [Usage](#usage)
   - [Custom flags](#custom-flags)
-- [Integrations](#integrations)
+- [Adapters](#adapters)
   - [Express](#express)
+  - [Fastify](#fastify)
 - [CloudFront](#cloudfront)
 - [Cloudflare](#cloudflare)
 - [Compatibility](#compatibility)
@@ -85,7 +86,7 @@ device.isRawClient; // true
 
 See [Custom flags](https://undevice.hacks.run/guide/custom-flags) for callbacks, exclusions, and more examples.
 
-## Integrations
+## Adapters
 
 ### Express
 
@@ -101,7 +102,23 @@ app.get("/device", (_req, res) => {
 });
 ```
 
-See the [Express guide](https://undevice.hacks.run/integrations/express) for custom flags and TypeScript declarations.
+See the [Express guide](https://undevice.hacks.run/adapters/express) for custom flags and TypeScript declarations.
+
+### Fastify
+
+```ts
+import Fastify from "fastify";
+import { undevice } from "undevice/fastify";
+
+const app = Fastify();
+await app.register(undevice());
+
+app.get("/device", async (request, reply) => {
+  return reply.send(request.undevice);
+});
+```
+
+See the [Fastify guide](https://undevice.hacks.run/adapters/fastify) for custom flags and TypeScript declarations.
 
 ## CloudFront
 
