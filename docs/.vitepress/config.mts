@@ -51,7 +51,7 @@ const sidebar = (ru = false) => {
 export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'llms'>>({
   title: 'undevice',
   srcExclude: ['NPM_RELEASE_TAG_MVP.md', 'V2_CRAWLER_DISCUSSION.md'],
-  description: 'Portable device, OS, and browser detection. Bring your own flags.',
+  description: 'Unified Device Detector. Device, OS & browser detection. Bring your own flags.',
   lang: 'en-US',
   cleanUrls: true,
   lastUpdated: true,
@@ -93,7 +93,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
     const adapter = /^(?:ru\/)?adapters\/(express|fastify)$/.exec(path)?.[1]
     const adapterName = adapter === 'fastify' ? 'Fastify' : 'Express'
     const image = `${origin}/${adapter ? `og-${adapter}` : 'og-docs'}.png`
-    const imageAlt = adapter
+    const socialDescription = adapter
       ? `undevice | ${adapter}. Using undevice in ${adapterName} apps just got easier.`
       : 'undevice. Unified Device Detector. Device, OS & browser detection. Bring your own flags.'
     return [
@@ -103,15 +103,16 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       ['meta', { property: 'og:image:type', content: 'image/png' }],
       ['meta', { property: 'og:image:width', content: '1200' }],
       ['meta', { property: 'og:image:height', content: '630' }],
-      ['meta', { property: 'og:image:alt', content: imageAlt }],
+      ['meta', { property: 'og:image:alt', content: socialDescription }],
       ['meta', { name: 'twitter:image', content: image }],
-      ['meta', { name: 'twitter:image:alt', content: imageAlt }],
+      ['meta', { name: 'twitter:image:alt', content: socialDescription }],
+      ['meta', { name: 'twitter:description', content: socialDescription }],
       ['meta', { property: 'og:title', content: `${pageData.title || 'undevice'} | undevice` }],
       [
         'meta',
         {
           property: 'og:description',
-          content: pageData.description || 'Portable device detection with custom flags.',
+          content: socialDescription,
         },
       ],
     ]
