@@ -1,5 +1,6 @@
 ---
 layout: home
+title: undevice
 hero:
   name: undevice
   text: Unified Device Detector

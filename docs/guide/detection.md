@@ -15,7 +15,7 @@ type UndeviceOptions = Readonly<{
 | `headers` | [`RequestHeaders`](/api/type-aliases/RequestHeaders) | `undefined` | Request headers. Accepts a standard [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance or a plain record, including Node.js request headers. |
 | `userAgent` | `string` | From `headers` | Used instead of the `user-agent` header value. Also supports standalone UA detection. |
 
-### Result
+## Result
 
 [`UndeviceResult`](/api/type-aliases/UndeviceResult) contains the following built-in boolean flags:
 

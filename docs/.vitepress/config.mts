@@ -7,6 +7,7 @@ import ts from 'typescript-docs'
 import { type DefaultTheme, defineConfigWithTheme, type UserConfig } from 'vitepress'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import llmstxt, { copyOrDownloadAsMarkdownButtons } from 'vitepress-plugin-llms'
+import { completeMarkdownPages } from './markdown-pages.mjs'
 
 const origin = 'https://undevice.hacks.run'
 const repo = 'https://github.com/teplostanski/undevice'
@@ -56,6 +57,7 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
   cleanUrls: true,
   lastUpdated: true,
   sitemap: { hostname: origin },
+  buildEnd: completeMarkdownPages,
   head: [
     [
       'link',
@@ -230,6 +232,9 @@ export default defineConfigWithTheme<DefaultTheme.Config & Pick<DefaultTheme, 'l
       groupIconVitePlugin() as NonNullable<NonNullable<UserConfig['vite']>['plugins']>[number],
       llmstxt({
         domain: origin,
+        excludeIndexPage: false,
+        injectLLMHint: false,
+        sidebar: sidebar(),
         ignoreFiles: ['NPM_RELEASE_TAG_MVP.md', 'V2_CRAWLER_DISCUSSION.md'],
         ignoreFilesPerOutput: { llmsTxt: ['ru/**', 'ru.md'], llmsFullTxt: ['ru/**', 'ru.md'] },
       }),

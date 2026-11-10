@@ -58,7 +58,7 @@ const { detect } = undevice({
 });
 ```
 
-#### Examples with third-party libraries
+## Examples with third-party libraries
 
 **isCrawler with isbot**
 

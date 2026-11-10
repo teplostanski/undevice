@@ -49,6 +49,7 @@ The VitePress site lives in `docs/` and targets https://undevice.hacks.run.
 - `pnpm docs:dev`: generate the API reference and start the local development server.
 - `pnpm docs:typecheck`: check the VitePress configuration types.
 - `pnpm docs:build`: regenerate the TypeDoc reference, check configuration types, and build the static site.
+- `pnpm docs:smoke`: check the built HTML, Markdown discovery, local links, and LLM bundle.
 - `pnpm docs:preview`: preview the production build.
 
 Edit English pages in `docs/guide/` and Russian pages in `docs/ru/guide/` together.
@@ -62,6 +63,18 @@ TypeScript 6 package does not ship the standard library files required by its VF
 This does not change the library compiler. The public API reference is in English
 and shared by both locales. Local search indexes both languages. The LLM index and
 full bundle contain English docs; per-page Markdown is available in both languages.
+
+The Markdown build includes homepage text from the same frontmatter used by the
+HTML hero and features. Directory indexes are available at both `/path.md` and
+`/path/index.md`. TypeDoc uses root-relative `/api/` links so both forms work.
+The documentation workflow runs `docs:smoke` before uploading the Pages artifact.
+
+GitHub Pages serves static files. Markdown is discovered through HTML alternate
+links and fetched at explicit `.md` URLs. It does not negotiate `Accept` headers;
+HTTP `Link`, `Vary: Accept`, and format-specific `406` responses require a proxy
+or another hosting platform with request handlers. No such handler is deployed
+by this repository. `robots.txt` permits search and AI input; it does not declare
+a policy for model training. Server-side AI traffic analytics are not configured.
 
 CI builds the site on Node.js 24. To host on GitHub Pages, select GitHub Actions as
 the Pages source, configure the custom domain `undevice.hacks.run`, and point its

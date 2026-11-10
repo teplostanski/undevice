@@ -5,6 +5,7 @@
   "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
   "out": "docs/api",
   "docsRoot": "docs",
+  "publicPath": "/api/",
   "readme": "none",
   "entryFileName": "index",
   "name": "undevice",

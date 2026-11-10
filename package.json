@@ -63,6 +63,7 @@
     "docs:dev": "pnpm docs:api && vitepress dev docs",
     "docs:typecheck": "node node_modules/typescript-docs/bin/tsc -p docs/tsconfig.json",
     "docs:build": "pnpm docs:api && pnpm docs:typecheck && vitepress build docs",
+    "docs:smoke": "node --test scripts/docs-smoke.mjs",
     "docs:preview": "vitepress preview docs"
   },
   "keywords": [
