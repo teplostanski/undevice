@@ -1,6 +1,6 @@
 {
   "name": "undevice",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Runtime-agnostic user-agent device detector",
   "type": "module",
   "sideEffects": false,
@@ -99,7 +99,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.6.5",
     "@shikijs/vitepress-twoslash": "^2.5.0",
-    "@teplostanski/biome-config": "1.0.0",
+    "@teplostanski/biome-config": "2.0.0",
     "@types/express": "^5.0.6",
     "@types/node": "^22.20.5",
     "@typescript/native": "npm:typescript@^7.0.2",

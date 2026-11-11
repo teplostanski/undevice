@@ -12,7 +12,7 @@ type HomeFrontmatter = {
   features?: { title: string; details: string; link?: string; linkText?: string }[]
 }
 
-function homeIntroduction({ hero, features = [] }: HomeFrontmatter): string {
+const homeIntroduction = ({ hero, features = [] }: HomeFrontmatter): string => {
   return [
     `# ${hero?.name ?? 'undevice'}`,
     hero?.text,
@@ -33,7 +33,7 @@ function homeIntroduction({ hero, features = [] }: HomeFrontmatter): string {
 }
 
 /** Complete the plugin's Markdown output using the same source as the HTML pages. */
-export async function completeMarkdownPages(config: SiteConfig): Promise<void> {
+export const completeMarkdownPages = async (config: SiteConfig): Promise<void> => {
   const homePages = await createContentLoader(['index.md', 'ru/index.md']).load()
   const bundlePath = join(config.outDir, 'llms-full.txt')
   let bundle = await readFile(bundlePath, 'utf8')

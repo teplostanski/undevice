@@ -3,7 +3,7 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - typescript
   - "@typescript/native"
-  - "@teplostanski/biome-config@1.0.0"
+  - "@teplostanski/biome-config"
 peerDependencyRules:
   allowedVersions:
     typescript: "6"

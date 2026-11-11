@@ -210,8 +210,8 @@ importers:
         specifier: ^2.5.0
         version: 2.5.0(@typescript/typescript6@6.0.2)
       '@teplostanski/biome-config':
-        specifier: 1.0.0
-        version: 1.0.0(@biomejs/biome@2.6.5)
+        specifier: 2.0.0
+        version: 2.0.0(@biomejs/biome@2.6.5)
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -1084,8 +1084,8 @@ packages:
   '@shikijs/vscode-textmate@10.1.0':
     resolution: {integrity: sha512-cVBuhDQjBZaNMTwBquYfPydrUP+E3hE6oYGasx8h6ZrODIM7/r+gxLDXdd66oszbrggZHEntdE6j+5gYIVyMWQ==}
 
-  '@teplostanski/biome-config@1.0.0':
-    resolution: {integrity: sha512-mVGmsUcxUkIO+aOjCClmKOOBxrn2zFYsLq9+2rttEtfEkHEN4/LSJr/wXU7f2Pem+crykOBEkUDsHhngaNde/g==}
+  '@teplostanski/biome-config@2.0.0':
+    resolution: {integrity: sha512-yadAACwYMyvi5DwfNCDUbV0yffedCY9fy30BP9W7h0GYVWb5ICfl364sP80X/ytdaGKHcUfzr3bRe2ry36Xd+Q==}
     peerDependencies:
       '@biomejs/biome': ^2.6.5
 
@@ -3847,7 +3847,7 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.1.0': {}
 
-  '@teplostanski/biome-config@1.0.0(@biomejs/biome@2.6.5)':
+  '@teplostanski/biome-config@2.0.0(@biomejs/biome@2.6.5)':
     dependencies:
       '@biomejs/biome': 2.6.5
 

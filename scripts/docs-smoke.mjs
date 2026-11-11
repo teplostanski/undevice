@@ -12,7 +12,7 @@ const read = path => readFile(resolve(root, path), 'utf8')
 const htmlPages = [...files].filter(file => file.endsWith('.html') && file !== '404.html')
 const markdownPath = html => html.replace(/\/index\.html$/, '.md').replace(/\.html$/, '.md')
 
-function links(source) {
+const links = source => {
   return markdown
     .parse(source, {})
     .flatMap(token => token.children ?? [])
