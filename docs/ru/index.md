@@ -38,37 +38,37 @@ features:
 ::: code-group
 
 ```ts twoslash [Простое использование]
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ userAgent: navigator.userAgent });
+const { detect } = undevice()
+const device = detect({ userAgent: navigator.userAgent })
 
-device.isMobile;
-device.isDesktop;
-device.isWindows;
-device.isChrome;
+device.isMobile
+device.isDesktop
+device.isWindows
+device.isChrome
 ```
 
 ```ts twoslash [Пользовательские флаги]
 // В примере используется сторонняя библиотека isbot
-import { isbot } from "isbot";
-import { undevice } from "undevice";
+import { isbot } from 'isbot'
+import { undevice } from 'undevice'
 
 // Настройка пользовательских флагов
 const { detect } = undevice({
   isCrawler: isbot,
-  isRawClient: ["curl", "wget"],
-});
-const device = detect({ userAgent: navigator.userAgent });
+  isRawClient: ['curl', 'wget'],
+})
+const device = detect({ userAgent: navigator.userAgent })
 
-device.isMobile;
-device.isDesktop;
-device.isWindows;
-device.isChrome;
+device.isMobile
+device.isDesktop
+device.isWindows
+device.isChrome
 
 // Использование пользовательских флагов
-device.isCrawler;
-device.isRawClient;
+device.isCrawler
+device.isRawClient
 ```
 
 :::

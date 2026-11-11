@@ -38,37 +38,37 @@ features:
 ::: code-group
 
 ```ts twoslash [Basic usage]
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ userAgent: navigator.userAgent });
+const { detect } = undevice()
+const device = detect({ userAgent: navigator.userAgent })
 
-device.isMobile;
-device.isDesktop;
-device.isWindows;
-device.isChrome;
+device.isMobile
+device.isDesktop
+device.isWindows
+device.isChrome
 ```
 
 ```ts twoslash [Custom flags]
 // This example uses the third-party library isbot
-import { isbot } from "isbot";
-import { undevice } from "undevice";
+import { isbot } from 'isbot'
+import { undevice } from 'undevice'
 
 // Configure custom flags
 const { detect } = undevice({
   isCrawler: isbot,
-  isRawClient: ["curl", "wget"],
-});
-const device = detect({ userAgent: navigator.userAgent });
+  isRawClient: ['curl', 'wget'],
+})
+const device = detect({ userAgent: navigator.userAgent })
 
-device.isMobile;
-device.isDesktop;
-device.isWindows;
-device.isChrome;
+device.isMobile
+device.isDesktop
+device.isWindows
+device.isChrome
 
 // Use custom flags
-device.isCrawler;
-device.isRawClient;
+device.isCrawler
+device.isRawClient
 ```
 
 :::

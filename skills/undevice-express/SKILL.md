@@ -10,15 +10,15 @@ Check the application's installed package exports for `undevice/express` and pre
 ## Middleware
 
 ```ts
-import express from 'express';
-import { undevice } from 'undevice/express';
+import express from 'express'
+import { undevice } from 'undevice/express'
 
-const app = express();
-app.use(undevice());
+const app = express()
+app.use(undevice())
 
 app.get('/device', (_req, res) => {
-  res.json(res.locals.undevice);
-});
+  res.json(res.locals.undevice)
+})
 ```
 
 - Register middleware before handlers that read `res.locals.undevice`.
@@ -35,28 +35,28 @@ Export configured middleware and infer its custom flags with `UndeviceMiddleware
 
 ```ts
 // app.ts
-import express from 'express';
-import { undevice } from 'undevice/express';
+import express from 'express'
+import { undevice } from 'undevice/express'
 
-const app = express();
+const app = express()
 export const undeviceMiddleware = undevice({
   isRawClient: ['curl', 'wget'],
-});
+})
 
-app.use(undeviceMiddleware);
+app.use(undeviceMiddleware)
 app.get('/device', (_req, res) => {
-  res.locals.undevice.isMobile;    // boolean
-  res.locals.undevice.isRawClient; // boolean
-  res.json(res.locals.undevice);
-});
+  res.locals.undevice.isMobile // boolean
+  res.locals.undevice.isRawClient // boolean
+  res.json(res.locals.undevice)
+})
 ```
 
 ```ts
 // undevice.d.ts
-import type { UndeviceMiddlewareFlags } from 'undevice/express';
-import type { undeviceMiddleware } from './app.js';
+import type { UndeviceMiddlewareFlags } from 'undevice/express'
+import type { undeviceMiddleware } from './app.js'
 
-type Flags = UndeviceMiddlewareFlags<typeof undeviceMiddleware>;
+type Flags = UndeviceMiddlewareFlags<typeof undeviceMiddleware>
 
 declare module 'undevice/express' {
   interface UndeviceCustomFlags extends Flags {}
@@ -66,11 +66,11 @@ declare module 'undevice/express' {
 Alternatively, declare custom fields manually:
 
 ```ts
-import 'undevice/express';
+import 'undevice/express'
 
 declare module 'undevice/express' {
   interface UndeviceCustomFlags {
-    isRawClient: boolean;
+    isRawClient: boolean
   }
 }
 ```

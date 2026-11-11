@@ -12,12 +12,12 @@ Use the application's installed undevice version and existing request flow. This
 Import the named ESM export and configure a detector once for reuse across requests:
 
 ```ts
-import { undevice } from 'undevice';
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
+const { detect } = undevice()
 
 // Inside a request handler:
-const device = detect({ headers: request.headers });
+const device = detect({ headers: request.headers })
 ```
 
 - `undevice(extensions?)` returns a frozen object containing `detect`.
@@ -32,17 +32,17 @@ const device = detect({ headers: request.headers });
 const device = detect({
   headers: request.headers,
   userAgent: customUserAgent,
-});
+})
 ```
 
 Built-in flags:
 
-| Group | Fields |
-| --- | --- |
-| Device | `isMobile`, `isTablet`, `isDesktop`, `isUnknown` |
-| Combined | `isMobileOrTablet`, `isDesktopOrTablet` |
-| OS | `isIos`, `isAndroid`, `isWindows`, `isMacOS`, `isLinux`, `isApple` |
-| Browser | `isChrome`, `isFirefox`, `isSafari`, `isEdge`, `isSamsung` |
+| Group    | Fields                                                             |
+| -------- | ------------------------------------------------------------------ |
+| Device   | `isMobile`, `isTablet`, `isDesktop`, `isUnknown`                   |
+| Combined | `isMobileOrTablet`, `isDesktopOrTablet`                            |
+| OS       | `isIos`, `isAndroid`, `isWindows`, `isMacOS`, `isLinux`, `isApple` |
+| Browser  | `isChrome`, `isFirefox`, `isSafari`, `isEdge`, `isSamsung`         |
 
 Unknown UA is not automatically desktop. Do not mutate the result to add application data; create a separate object or configure an extension.
 
@@ -57,13 +57,13 @@ Pass extensions directly to the factory, without an `extend` wrapper. Each key b
 ```ts
 const { detect } = undevice({
   isCrawler: {
-    detect: (ua) => /googlebot|bingbot/i.test(ua),
+    detect: ua => /googlebot|bingbot/i.test(ua),
     exclude: ['my-health-checker'],
   },
   isRawClient: ['curl', 'wget'],
-});
+})
 
-const device = detect({ userAgent: 'curl/8.0' });
+const device = detect({ userAgent: 'curl/8.0' })
 // device.isRawClient === true
 // device.isCrawler === false
 ```
@@ -75,12 +75,12 @@ Custom flag names should be distinct from built-in names: the current implementa
 For third-party bot detection, add the chosen dependency to the consuming application, not to undevice. For example, after installing `isbot`:
 
 ```ts
-import { isbot } from 'isbot';
-import { undevice } from 'undevice';
+import { isbot } from 'isbot'
+import { undevice } from 'undevice'
 
 const { detect } = undevice({
   isCrawler: { detect: isbot, exclude: ['curl', 'wget'] },
-});
+})
 ```
 
 `isCrawler` is a custom flag, not a built-in result field. Bot checks identify UA patterns; they do not authenticate the sender.
@@ -110,9 +110,9 @@ An explicit UA replaces the UA source, not all CDN hints:
 Public types are `RequestHeaders`, `UndeviceExtensions`, `UndeviceOptions`, and `UndeviceResult<T>`. Let the factory infer extension keys from the supplied object; use `satisfies UndeviceExtensions` to validate checks without widening their keys. `UndeviceResult` without a type argument describes built-in flags only. Internal types such as `FlagCheck` and `FlagExtension` are not package-root exports in this version.
 
 ```ts
-const extensions = { isRawClient: ['curl', 'wget'] };
-const { detect } = undevice(extensions);
-type Device = ReturnType<typeof detect>;
+const extensions = { isRawClient: ['curl', 'wget'] }
+const { detect } = undevice(extensions)
+type Device = ReturnType<typeof detect>
 ```
 
 Validate the behavior changed in the consuming application: request header extraction, explicit UA precedence, custom matches and exclusions, and reuse across distinct requests. Use its existing typecheck and test commands. Include SSR/client consistency checks when changing rendering behavior.

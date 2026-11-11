@@ -6,10 +6,10 @@ Connect undevice to your server application to detect devices from each request'
 
 Adapters are included in `undevice` and support CDN headers and typed built-in and custom flags.
 
-| Adapter | Import | Result |
-| --- | --- | --- |
+| Adapter                      | Import             | Result                |
+| ---------------------------- | ------------------ | --------------------- |
 | [Express](/adapters/express) | `undevice/express` | `res.locals.undevice` |
-| [Fastify](/adapters/fastify) | `undevice/fastify` | `request.undevice` |
+| [Fastify](/adapters/fastify) | `undevice/fastify` | `request.undevice`    |
 
 ## Other frameworks and SSR
 

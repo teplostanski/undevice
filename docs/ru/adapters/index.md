@@ -6,10 +6,10 @@
 
 Адаптеры входят в пакет `undevice` и поддерживают заголовки CDN, стандартные и пользовательские флаги с типизацией.
 
-| Адаптер | Импорт | Результат |
-| --- | --- | --- |
+| Адаптер                         | Импорт             | Результат             |
+| ------------------------------- | ------------------ | --------------------- |
 | [Express](/ru/adapters/express) | `undevice/express` | `res.locals.undevice` |
-| [Fastify](/ru/adapters/fastify) | `undevice/fastify` | `request.undevice` |
+| [Fastify](/ru/adapters/fastify) | `undevice/fastify` | `request.undevice`    |
 
 ## Другие фреймворки и SSR
 

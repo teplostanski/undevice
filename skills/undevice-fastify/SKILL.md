@@ -10,15 +10,15 @@ Check the application's installed package exports for `undevice/fastify` and pre
 ## Plugin
 
 ```ts
-import Fastify from 'fastify';
-import { undevice } from 'undevice/fastify';
+import Fastify from 'fastify'
+import { undevice } from 'undevice/fastify'
 
-const app = Fastify();
-await app.register(undevice());
+const app = Fastify()
+await app.register(undevice())
 
 app.get('/device', async (request, reply) => {
-  return reply.send(request.undevice);
-});
+  return reply.send(request.undevice)
+})
 ```
 
 - Register the plugin once in the scope containing the routes that use `request.undevice`, before registering those routes or their plugins. Pass the configured plugin to `app.register` without calling it again.
@@ -35,28 +35,28 @@ Export a configured plugin and infer its custom flags with `UndevicePluginFlags`
 
 ```ts
 // app.ts
-import Fastify from 'fastify';
-import { undevice } from 'undevice/fastify';
+import Fastify from 'fastify'
+import { undevice } from 'undevice/fastify'
 
-const app = Fastify();
+const app = Fastify()
 export const undevicePlugin = undevice({
   isRawClient: ['curl', 'wget'],
-});
+})
 
-await app.register(undevicePlugin);
+await app.register(undevicePlugin)
 app.get('/device', async (request, reply) => {
-  request.undevice.isMobile;    // boolean
-  request.undevice.isRawClient; // boolean
-  return reply.send(request.undevice);
-});
+  request.undevice.isMobile // boolean
+  request.undevice.isRawClient // boolean
+  return reply.send(request.undevice)
+})
 ```
 
 ```ts
 // undevice.d.ts
-import type { UndevicePluginFlags } from 'undevice/fastify';
-import type { undevicePlugin } from './app.js';
+import type { UndevicePluginFlags } from 'undevice/fastify'
+import type { undevicePlugin } from './app.js'
 
-type Flags = UndevicePluginFlags<typeof undevicePlugin>;
+type Flags = UndevicePluginFlags<typeof undevicePlugin>
 
 declare module 'undevice/fastify' {
   interface UndeviceCustomFlags extends Flags {}
@@ -66,11 +66,11 @@ declare module 'undevice/fastify' {
 Alternatively, declare custom fields manually:
 
 ```ts
-import 'undevice/fastify';
+import 'undevice/fastify'
 
 declare module 'undevice/fastify' {
   interface UndeviceCustomFlags {
-    isRawClient: boolean;
+    isRawClient: boolean
   }
 }
 ```
