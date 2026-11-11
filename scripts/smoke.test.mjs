@@ -1,8 +1,18 @@
-import { mkdtempSync, rmSync } from 'node:fs'
+import { execFile } from 'node:child_process'
+import {
+  cpSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { promisify } from 'node:util'
 import { createContext, runInContext } from 'node:vm'
 import { expect, it } from 'vitest'
 
@@ -102,3 +112,104 @@ it('exports the Express adapter from the package subpath', async () => {
   expect(res.locals.undevice.isRawClient).toBe(true)
   expect(Object.isFrozen(res.locals.undevice)).toBe(true)
 })
+
+it.each(['typescript-docs', '@typescript/native'])(
+  'emits consumer declarations using the built adapter types with %s',
+  async compiler => {
+    const tempDir = mkdtempSync(join(tmpdir(), 'undevice-smoke-types-'))
+    const modules = join(tempDir, 'node_modules')
+    const installedPackage = join(modules, 'undevice')
+
+    try {
+      mkdirSync(installedPackage, { recursive: true })
+      cpSync(new URL('../dist', import.meta.url), join(installedPackage, 'dist'), {
+        recursive: true,
+      })
+      cpSync(new URL('../package.json', import.meta.url), join(installedPackage, 'package.json'))
+      for (const dependency of ['express', 'fastify', '@types']) {
+        symlinkSync(
+          new URL(`../node_modules/${dependency}`, import.meta.url),
+          join(modules, dependency),
+          'junction',
+        )
+      }
+      writeFileSync(
+        join(tempDir, 'consumer.mts'),
+        `import express from 'express';
+import Fastify from 'fastify';
+import { undevice as middleware, type UndeviceMiddlewareFlags } from 'undevice/express';
+import { undevice as plugin, type UndevicePluginFlags } from 'undevice/fastify';
+
+export const expressDetector = middleware({ isRawClient: ['curl'] });
+export const fastifyDetector = plugin({ isBot: ['bot'] });
+export const createMiddleware = () => middleware({ isRawClient: ['curl'] });
+export const createPlugin = () => plugin({ isBot: ['bot'] });
+
+type ExpressFlags = UndeviceMiddlewareFlags<typeof expressDetector>;
+type FastifyFlags = UndevicePluginFlags<typeof fastifyDetector>;
+declare module 'undevice/express' {
+  interface UndeviceCustomFlags extends ExpressFlags { isManualExpress: boolean }
+}
+declare module 'undevice/fastify' {
+  interface UndeviceCustomFlags extends FastifyFlags { isManualFastify: boolean }
+}
+
+const app = express();
+app.use(expressDetector);
+app.get('/', (_req, res) => {
+  const mobile: boolean = res.locals.undevice.isMobile;
+  const raw: boolean = res.locals.undevice.isRawClient;
+  const manual: boolean = res.locals.undevice.isManualExpress;
+  // @ts-expect-error Fastify declarations must not leak into Express.
+  res.locals.undevice.isBot;
+  // @ts-expect-error Undeclared flags must not become any.
+  res.locals.undevice.isNotDeclared;
+  res.json({ mobile, raw, manual });
+});
+const server = Fastify();
+await server.register(fastifyDetector);
+server.get('/', request => {
+  const mobile: boolean = request.undevice.isMobile;
+  const bot: boolean = request.undevice.isBot;
+  const manual: boolean = request.undevice.isManualFastify;
+  // @ts-expect-error Express declarations must not leak into Fastify.
+  request.undevice.isRawClient;
+  // @ts-expect-error Undeclared flags must not become any.
+  request.undevice.isNotDeclared;
+  return { mobile, bot, manual };
+});
+`,
+      )
+      writeFileSync(
+        join(tempDir, 'tsconfig.json'),
+        JSON.stringify({
+          compilerOptions: {
+            target: 'ES2022',
+            module: 'NodeNext',
+            moduleResolution: 'NodeNext',
+            strict: true,
+            skipLibCheck: false,
+            declaration: true,
+            emitDeclarationOnly: true,
+            outDir: 'output',
+            types: ['node'],
+          },
+          files: ['consumer.mts'],
+        }),
+      )
+      try {
+        const executable = join(dirname(require.resolve(`${compiler}/package.json`)), 'bin/tsc')
+        await promisify(execFile)(process.execPath, [executable, '-p', tempDir], { cwd: tempDir })
+      } catch (error) {
+        throw new Error(`${compiler}: ${error.stdout}\n${error.stderr}`, { cause: error })
+      }
+      const declarations = readFileSync(join(tempDir, 'output/consumer.d.mts'), 'utf8')
+      expect(declarations).toContain('UndeviceMiddleware')
+      expect(declarations).toContain('UndevicePlugin')
+      expect(declarations).not.toContain('undevice/dist/shared')
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true })
+    }
+  },
+  30_000,
+)
