@@ -47,7 +47,7 @@
   "scripts": {
     "check": "pnpm lint && pnpm typecheck",
     "check:lib": "pnpm check && pnpm test && pnpm build && pnpm publint && pnpm smoke",
-    "check:full": "pnpm check:lib && pnpm test:coverage && pnpm docs:build && pnpm docs:smoke",
+    "check:full": "pnpm check:lib && pnpm test:coverage && pnpm docs:build && pnpm docs:smoke && pnpm biome:migrate",
     "build": "unbuild",
     "dev": "vitest",
     "dev:docs": "pnpm docs:dev",
@@ -66,7 +66,8 @@
     "docs:typecheck": "node node_modules/typescript-docs/bin/tsc -p docs/tsconfig.json",
     "docs:build": "pnpm docs:api && pnpm docs:typecheck && vitepress build docs",
     "docs:smoke": "node --test scripts/docs-smoke.mjs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "biome:migrate": "biome migrate --write"
   },
   "keywords": [
     "user-agent",
@@ -97,9 +98,9 @@
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.5",
+    "@biomejs/biome": "2.6.6",
     "@shikijs/vitepress-twoslash": "^2.5.0",
-    "@teplostanski/biome-config": "2.0.0",
+    "@teplostanski/biome-config": "2.0.3",
     "@types/express": "^5.0.6",
     "@types/node": "^22.20.5",
     "@typescript/native": "npm:typescript@^7.0.2",
