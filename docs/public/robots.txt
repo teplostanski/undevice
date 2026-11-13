@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-input=yes
 Sitemap: https://undevice.hacks.run/sitemap.xml

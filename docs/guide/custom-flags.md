@@ -13,52 +13,52 @@ Each value can be:
 A check function:
 
 ```ts twoslash
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
 const { detect } = undevice({
   isCrawler: (ua: string) => /googlebot/i.test(ua),
-});
+})
 ```
 
 An array of substrings:
 
 ```ts twoslash
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
 const { detect } = undevice({
-  isRawClient: ["curl", "wget"],
-});
+  isRawClient: ['curl', 'wget'],
+})
 ```
 
 A check with an array of exclusions:
 
 ```ts twoslash
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-import { isbot } from "isbot";
+import { isbot } from 'isbot'
 
 const { detect } = undevice({
   isCrawler: {
     detect: isbot,
-    exclude: ["curl", "wget"],
+    exclude: ['curl', 'wget'],
   },
-});
+})
 ```
 
 An array of substrings in `detect` and a function in `exclude`:
 
 ```ts twoslash
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
 const { detect } = undevice({
   isCrawler: {
-    detect: ["bot", "crawler", "spider"],
-    exclude: (ua: string) => ua.includes("my-health-checker"),
+    detect: ['bot', 'crawler', 'spider'],
+    exclude: (ua: string) => ua.includes('my-health-checker'),
   },
-});
+})
 ```
 
-#### Examples with third-party libraries
+## Examples with third-party libraries
 
 **isCrawler with isbot**
 
@@ -69,13 +69,13 @@ npm install isbot
 ```
 
 ```ts twoslash
-import { isbot } from "isbot";
-import { undevice } from "undevice";
+import { isbot } from 'isbot'
+import { undevice } from 'undevice'
 
-const { detect } = undevice({ isCrawler: isbot });
-const device = detect({ userAgent: navigator.userAgent });
+const { detect } = undevice({ isCrawler: isbot })
+const device = detect({ userAgent: navigator.userAgent })
 
-device.isCrawler;
+device.isCrawler
 ```
 
 **isCrawler with crawler-user-agents**
@@ -90,16 +90,16 @@ npm install crawler-user-agents
 
 ```ts twoslash
 // @resolveJsonModule: true
-import crawlers from "crawler-user-agents" with { type: "json" };
-import { undevice } from "undevice";
+import crawlers from 'crawler-user-agents' with { type: 'json' }
+import { undevice } from 'undevice'
 
-const patterns = crawlers.map(({ pattern }) => new RegExp(pattern, "i"));
+const patterns = crawlers.map(({ pattern }) => new RegExp(pattern, 'i'))
 
 const { detect } = undevice({
-  isCrawler: (ua: string) => patterns.some((pattern) => pattern.test(ua)),
-});
+  isCrawler: (ua: string) => patterns.some(pattern => pattern.test(ua)),
+})
 
-const device = detect({ userAgent: navigator.userAgent });
+const device = detect({ userAgent: navigator.userAgent })
 
-device.isCrawler;
+device.isCrawler
 ```

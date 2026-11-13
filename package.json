@@ -1,6 +1,6 @@
 {
   "name": "undevice",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Runtime-agnostic user-agent device detector",
   "type": "module",
   "sideEffects": false,
@@ -10,7 +10,7 @@
     "email": "hi@teplostanski.me",
     "url": "https://teplostanski.me"
   },
-  "packageManager": "pnpm@12.16.1",
+  "packageManager": "pnpm@12.18.0",
   "engines": {
     "node": ">=22"
   },
@@ -45,13 +45,15 @@
     }
   },
   "scripts": {
+    "check": "pnpm lint && pnpm typecheck",
+    "check:lib": "pnpm check && pnpm test && pnpm build && pnpm publint && pnpm smoke",
+    "check:full": "pnpm check:lib && pnpm test:coverage && pnpm docs:build && pnpm docs:smoke && pnpm biome:migrate",
     "build": "unbuild",
     "dev": "vitest",
     "dev:docs": "pnpm docs:dev",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "format:check": "biome format .",
     "prepack": "pnpm build",
     "publint": "publint",
     "smoke": "vitest run --config vitest.smoke.config.ts",
@@ -63,7 +65,9 @@
     "docs:dev": "pnpm docs:api && vitepress dev docs",
     "docs:typecheck": "node node_modules/typescript-docs/bin/tsc -p docs/tsconfig.json",
     "docs:build": "pnpm docs:api && pnpm docs:typecheck && vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:smoke": "node --test scripts/docs-smoke.mjs",
+    "docs:preview": "vitepress preview docs",
+    "biome:migrate": "biome migrate --write"
   },
   "keywords": [
     "user-agent",
@@ -94,30 +98,31 @@
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.14",
+    "@biomejs/biome": "2.6.6",
     "@shikijs/vitepress-twoslash": "^2.5.0",
+    "@teplostanski/biome-config": "2.0.3",
     "@types/express": "^5.0.6",
-    "@types/node": "^22.20.4",
+    "@types/node": "^26",
     "@typescript/native": "npm:typescript@^7.0.2",
-    "@vitest/coverage-v8": "^4.1.10",
-    "crawler-user-agents": "^1.62.0",
+    "@vitest/coverage-v8": "^5.1.0",
+    "crawler-user-agents": "^1.66.0",
     "express": "^5.3.0",
-    "fastify": "^5.12.7",
+    "fastify": "^5.12.8",
     "fastify-plugin": "^6.0.1",
     "husky": "^9.1.7",
-    "isbot": "^5.2.2",
-    "publint": "^0.3.22",
+    "isbot": "^5.2.3",
+    "publint": "^0.3.25",
     "typedoc": "^0.28.20",
-    "typedoc-plugin-markdown": "^4.14.0",
+    "typedoc-plugin-markdown": "^4.14.1",
     "typedoc-vitepress-theme": "^1.1.4",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-docs": "npm:typescript@6.0.3",
     "unbuild": "^3.6.1",
-    "vite": "^8.3.4",
+    "vite": "^8.3.7",
     "vitepress": "^1.6.4",
     "vitepress-plugin-group-icons": "^1.8.1",
     "vitepress-plugin-llms": "^1.14.0",
-    "vitest": "^4.1.10",
-    "vue": "^3.5.44"
+    "vitest": "^5.1.0",
+    "vue": "^3.5.45"
   }
 }

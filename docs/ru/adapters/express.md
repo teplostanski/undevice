@@ -10,16 +10,16 @@
 ## Подключение
 
 ```ts
-import express from 'express';
-import { undevice } from 'undevice/express';
+import express from 'express'
+import { undevice } from 'undevice/express'
 
-const app = express();
-app.use(undevice());
+const app = express()
+app.use(undevice())
 
 app.get('/device', (_req, res) => {
-  res.locals.undevice.isMobile; // boolean
-  res.json(res.locals.undevice);
-});
+  res.locals.undevice.isMobile // boolean
+  res.json(res.locals.undevice)
+})
 ```
 
 ## Типы пользовательских флагов
@@ -34,12 +34,12 @@ app.get('/device', (_req, res) => {
 ::: code-group
 
 ```ts [undevice.d.ts]
-import 'undevice/express';
+import 'undevice/express'
 
 declare module 'undevice/express' {
   interface UndeviceCustomFlags {
-    isCustomFlag: boolean;
-    isAnotherCustomFlag: boolean;
+    isCustomFlag: boolean
+    isAnotherCustomFlag: boolean
   }
 }
 ```
@@ -54,30 +54,30 @@ declare module 'undevice/express' {
 ::: code-group
 
 ```ts [app.ts]
-import express from 'express';
-import { undevice } from 'undevice/express';
+import express from 'express'
+import { undevice } from 'undevice/express'
 
-const app = express();
+const app = express()
 export const undeviceMiddleware = undevice({
   isBot: ['bot'],
   isRawClient: ['curl', 'wget'],
-});
+})
 
-app.use(undeviceMiddleware);
+app.use(undeviceMiddleware)
 
 app.get('/device', (_req, res) => {
-  res.locals.undevice.isMobile;    // boolean
-  res.locals.undevice.isBot;       // boolean
-  res.locals.undevice.isRawClient; // boolean
-  res.json(res.locals.undevice);
-});
+  res.locals.undevice.isMobile // boolean
+  res.locals.undevice.isBot // boolean
+  res.locals.undevice.isRawClient // boolean
+  res.json(res.locals.undevice)
+})
 ```
 
 ```ts [undevice.d.ts]
-import type { UndeviceMiddlewareFlags } from 'undevice/express';
-import type { undeviceMiddleware } from './app.js';
+import type { UndeviceMiddlewareFlags } from 'undevice/express'
+import type { undeviceMiddleware } from './app.js'
 
-type Flags = UndeviceMiddlewareFlags<typeof undeviceMiddleware>;
+type Flags = UndeviceMiddlewareFlags<typeof undeviceMiddleware>
 
 declare module 'undevice/express' {
   interface UndeviceCustomFlags extends Flags {}

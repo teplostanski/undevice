@@ -1,9 +1,5 @@
 import type { UndeviceExtensions, UndeviceResult } from '../core/types.js'
 
-/** Extend this interface in the application to declare its custom boolean flags. */
-// biome-ignore lint/suspicious/noEmptyInterface: Public extension point for module augmentation.
-export interface UndeviceCustomFlags {}
-
 declare const customFlags: unique symbol
 
 export type UndeviceAdapter<Handler, T extends UndeviceExtensions> = Handler & {
@@ -16,4 +12,4 @@ export type UndeviceAdapterFlags<T> = T extends {
   ? NonNullable<Flags>
   : never
 
-export type UndeviceAdapterResult = UndeviceResult & UndeviceCustomFlags
+export type UndeviceAdapterResult<CustomFlags> = UndeviceResult & CustomFlags

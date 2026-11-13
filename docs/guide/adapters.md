@@ -7,12 +7,12 @@ Create the detector outside the request handler and keep each result local to it
 Both expose a Node.js header record as `request.headers`. Use it in your existing route:
 
 ```ts
-import { undevice } from 'undevice';
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
+const { detect } = undevice()
 
 // Inside an Express or Fastify request handler:
-const device = detect({ headers: request.headers });
+const device = detect({ headers: request.headers })
 ```
 
 Return the flags, pass them to your template, or store them in the framework's request-local context. Do not put the latest request's result in a shared module variable.
@@ -38,12 +38,12 @@ For reuse across routes, export a configured detector from an application module
 ## Fetch handlers
 
 ```ts twoslash
-import { undevice } from 'undevice';
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
+const { detect } = undevice()
 
 export function handleRequest(request: Request): Response {
-  return Response.json(detect({ headers: request.headers }));
+  return Response.json(detect({ headers: request.headers }))
 }
 ```
 

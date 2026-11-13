@@ -7,12 +7,12 @@
 Оба фреймворка предоставляют заголовки Node.js через `request.headers`:
 
 ```ts
-import { undevice } from 'undevice';
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
+const { detect } = undevice()
 
 // В обработчике запроса Express или Fastify:
-const device = detect({ headers: request.headers });
+const device = detect({ headers: request.headers })
 ```
 
 Передайте флаги в ответ, шаблон или локальный контекст запроса. Не храните результат последнего запроса в общей переменной модуля.
@@ -38,12 +38,12 @@ const device = detect({ headers: Astro.request.headers });
 ## Обработчики Fetch
 
 ```ts twoslash
-import { undevice } from 'undevice';
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
+const { detect } = undevice()
 
 export function handleRequest(request: Request): Response {
-  return Response.json(detect({ headers: request.headers }));
+  return Response.json(detect({ headers: request.headers }))
 }
 ```
 

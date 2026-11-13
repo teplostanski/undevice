@@ -67,14 +67,14 @@ npx skills add teplostanski/undevice --skill undevice-fastify
 Create a detector once, then pass each request's headers to `detect()`:
 
 ```ts
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ headers: request.headers });
+const { detect } = undevice()
+const device = detect({ headers: request.headers })
 
-device.isMobile;
-device.isTablet;
-device.isDesktop;
+device.isMobile
+device.isTablet
+device.isDesktop
 ```
 
 See the [documentation](https://undevice.hacks.run/guide/getting-started) for input options, flags, and API details.
@@ -82,12 +82,12 @@ See the [documentation](https://undevice.hacks.run/guide/getting-started) for in
 ### Custom flags
 
 ```ts
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice({ isRawClient: ["curl", "wget"] });
-const device = detect({ userAgent: "curl/8.0" });
+const { detect } = undevice({ isRawClient: ['curl', 'wget'] })
+const device = detect({ userAgent: 'curl/8.0' })
 
-device.isRawClient; // true
+device.isRawClient // true
 ```
 
 See [Custom flags](https://undevice.hacks.run/guide/custom-flags) for callbacks, exclusions, and more examples.
@@ -97,15 +97,15 @@ See [Custom flags](https://undevice.hacks.run/guide/custom-flags) for callbacks,
 ### Express
 
 ```ts
-import express from "express";
-import { undevice } from "undevice/express";
+import express from 'express'
+import { undevice } from 'undevice/express'
 
-const app = express();
-app.use(undevice());
+const app = express()
+app.use(undevice())
 
-app.get("/device", (_req, res) => {
-  res.json(res.locals.undevice);
-});
+app.get('/device', (_req, res) => {
+  res.json(res.locals.undevice)
+})
 ```
 
 See the [Express guide](https://undevice.hacks.run/adapters/express) for custom flags and TypeScript declarations.
@@ -113,15 +113,15 @@ See the [Express guide](https://undevice.hacks.run/adapters/express) for custom 
 ### Fastify
 
 ```ts
-import Fastify from "fastify";
-import { undevice } from "undevice/fastify";
+import Fastify from 'fastify'
+import { undevice } from 'undevice/fastify'
 
-const app = Fastify();
-await app.register(undevice());
+const app = Fastify()
+await app.register(undevice())
 
-app.get("/device", async (request, reply) => {
-  return reply.send(request.undevice);
-});
+app.get('/device', async (request, reply) => {
+  return reply.send(request.undevice)
+})
 ```
 
 See the [Fastify guide](https://undevice.hacks.run/adapters/fastify) for custom flags and TypeScript declarations.

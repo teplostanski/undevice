@@ -25,14 +25,14 @@ bun add undevice
 Create a detector once, then pass each incoming request's headers to `detect()`:
 
 ```ts
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ headers: request.headers });
+const { detect } = undevice()
+const device = detect({ headers: request.headers })
 
-device.isMobile;
-device.isTablet;
-device.isDesktop;
+device.isMobile
+device.isTablet
+device.isDesktop
 ```
 
 `undevice()` returns a frozen object with a `detect` method. Each call to `detect()`
@@ -45,10 +45,10 @@ The library does not mutate input data or implicitly access request context or b
 In the browser, pass `navigator.userAgent`:
 
 ```ts
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ userAgent: navigator.userAgent });
+const { detect } = undevice()
+const device = detect({ userAgent: navigator.userAgent })
 ```
 
 To override the User-Agent:
@@ -57,7 +57,7 @@ To override the User-Agent:
 const device = detect({
   headers: request.headers,
   userAgent: customUserAgent,
-});
+})
 ```
 
 For SSR, reuse the server's result on the client to avoid hydration mismatches.

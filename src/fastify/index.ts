@@ -7,7 +7,10 @@ import type {
 } from '../adapters/types.js'
 import { undevice as core, type UndeviceExtensions } from '../index.js'
 
-export type { UndeviceCustomFlags } from '../adapters/types.js'
+// Duplicated per adapter so augmentation affects only this adapter's custom flags.
+/** Extend this interface in the application to declare its custom boolean flags. */
+// biome-ignore lint/suspicious/noEmptyInterface: Public extension point for module augmentation.
+export interface UndeviceCustomFlags {}
 
 export type UndevicePlugin<T extends UndeviceExtensions = Record<never, never>> = UndeviceAdapter<
   FastifyPluginAsync,
@@ -19,7 +22,7 @@ export type UndevicePluginFlags<T extends FastifyPluginAsync> = UndeviceAdapterF
 
 declare module 'fastify' {
   interface FastifyRequest {
-    undevice: UndeviceAdapterResult
+    undevice: UndeviceAdapterResult<UndeviceCustomFlags>
   }
 }
 
@@ -32,7 +35,9 @@ export const undevice = <T extends UndeviceExtensions = Record<never, never>>(
     app.decorateRequest('undevice', null, [])
 
     app.addHook('onRequest', async request => {
-      request.undevice = detect({ headers: request.headers }) as UndeviceAdapterResult
+      request.undevice = detect({
+        headers: request.headers,
+      }) as UndeviceAdapterResult<UndeviceCustomFlags>
     })
   }
 

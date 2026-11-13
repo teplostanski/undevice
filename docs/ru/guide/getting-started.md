@@ -25,14 +25,14 @@ bun add undevice
 Создайте детектор один раз, затем передавайте заголовки каждого входящего запроса в `detect()`:
 
 ```ts
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ headers: request.headers });
+const { detect } = undevice()
+const device = detect({ headers: request.headers })
 
-device.isMobile;
-device.isTablet;
-device.isDesktop;
+device.isMobile
+device.isTablet
+device.isDesktop
 ```
 
 `undevice()` возвращает замороженный объект с методом `detect`. Каждый вызов `detect()`
@@ -45,10 +45,10 @@ device.isDesktop;
 В браузере передайте `navigator.userAgent`:
 
 ```ts
-import { undevice } from "undevice";
+import { undevice } from 'undevice'
 
-const { detect } = undevice();
-const device = detect({ userAgent: navigator.userAgent });
+const { detect } = undevice()
+const device = detect({ userAgent: navigator.userAgent })
 ```
 
 Чтобы переопределить User-Agent:
@@ -57,7 +57,7 @@ const device = detect({ userAgent: navigator.userAgent });
 const device = detect({
   headers: request.headers,
   userAgent: customUserAgent,
-});
+})
 ```
 
 При SSR используйте на клиенте результат, полученный на сервере, чтобы избежать расхождений при гидратации.

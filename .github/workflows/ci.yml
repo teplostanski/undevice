@@ -30,16 +30,11 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm build
-      - run: pnpm publint
-      - run: pnpm smoke
+      - run: pnpm check:lib
 
       - name: Build documentation
         if: matrix.node == 24
-        run: pnpm docs:build
+        run: pnpm docs:build && pnpm docs:smoke
 
       - name: Coverage
         if: matrix.node == 24

@@ -3,7 +3,7 @@ name: release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   contents: write
@@ -52,12 +52,7 @@ jobs:
           NODE
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm build
-      - run: pnpm publint
-      - run: pnpm smoke
+      - run: pnpm check:lib
 
       - name: Publish to npm
         env:

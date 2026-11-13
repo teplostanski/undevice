@@ -10,16 +10,16 @@
 ## Подключение
 
 ```ts
-import Fastify from 'fastify';
-import { undevice } from 'undevice/fastify';
+import Fastify from 'fastify'
+import { undevice } from 'undevice/fastify'
 
-const app = Fastify();
-await app.register(undevice());
+const app = Fastify()
+await app.register(undevice())
 
 app.get('/device', async (request, reply) => {
-  request.undevice.isMobile; // boolean
-  return reply.send(request.undevice);
-});
+  request.undevice.isMobile // boolean
+  return reply.send(request.undevice)
+})
 ```
 
 ## Типы пользовательских флагов
@@ -34,12 +34,12 @@ app.get('/device', async (request, reply) => {
 ::: code-group
 
 ```ts [undevice.d.ts]
-import 'undevice/fastify';
+import 'undevice/fastify'
 
 declare module 'undevice/fastify' {
   interface UndeviceCustomFlags {
-    isCustomFlag: boolean;
-    isAnotherCustomFlag: boolean;
+    isCustomFlag: boolean
+    isAnotherCustomFlag: boolean
   }
 }
 ```
@@ -54,30 +54,30 @@ declare module 'undevice/fastify' {
 ::: code-group
 
 ```ts [app.ts]
-import Fastify from 'fastify';
-import { undevice } from 'undevice/fastify';
+import Fastify from 'fastify'
+import { undevice } from 'undevice/fastify'
 
-const app = Fastify();
+const app = Fastify()
 export const undevicePlugin = undevice({
   isBot: ['bot'],
   isRawClient: ['curl', 'wget'],
-});
+})
 
-await app.register(undevicePlugin);
+await app.register(undevicePlugin)
 
 app.get('/device', async (request, reply) => {
-  request.undevice.isMobile;    // boolean
-  request.undevice.isBot;       // boolean
-  request.undevice.isRawClient; // boolean
-  return reply.send(request.undevice);
-});
+  request.undevice.isMobile // boolean
+  request.undevice.isBot // boolean
+  request.undevice.isRawClient // boolean
+  return reply.send(request.undevice)
+})
 ```
 
 ```ts [undevice.d.ts]
-import type { UndevicePluginFlags } from 'undevice/fastify';
-import type { undevicePlugin } from './app.js';
+import type { UndevicePluginFlags } from 'undevice/fastify'
+import type { undevicePlugin } from './app.js'
 
-type Flags = UndevicePluginFlags<typeof undevicePlugin>;
+type Flags = UndevicePluginFlags<typeof undevicePlugin>
 
 declare module 'undevice/fastify' {
   interface UndeviceCustomFlags extends Flags {}
