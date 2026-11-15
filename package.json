@@ -1,6 +1,6 @@
 {
   "name": "undevice",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Runtime-agnostic user-agent device detector",
   "type": "module",
   "sideEffects": false,
@@ -67,7 +67,8 @@
     "docs:build": "pnpm docs:api && pnpm docs:typecheck && vitepress build docs",
     "docs:smoke": "node --test scripts/docs-smoke.mjs",
     "docs:preview": "vitepress preview docs",
-    "biome:migrate": "biome migrate --write"
+    "biome:migrate": "biome migrate --write",
+    "badge:coverage": "pnpm localbadge coverage"
   },
   "keywords": [
     "user-agent",
@@ -111,6 +112,7 @@
     "fastify-plugin": "^6.0.1",
     "husky": "^9.1.7",
     "isbot": "^5.2.3",
+    "localbadge": "0.1.0",
     "publint": "^0.3.25",
     "typedoc": "^0.28.20",
     "typedoc-plugin-markdown": "^4.14.1",

@@ -4,6 +4,7 @@ minimumReleaseAgeExclude:
   - typescript
   - "@typescript/native"
   - "@teplostanski/biome-config"
+  - localbadge@0.1.0
 peerDependencyRules:
   allowedVersions:
     typescript: "6"
