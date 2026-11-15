@@ -3,7 +3,7 @@
 [![version][npm-version-src]][npm-version-href]
 [![downloads][npm-downloads-src]][npm-downloads-href]
 [![license][npm-license-src]][npm-license-href]
-[![codecov][codecov-src]][codecov-href]
+![coverage](.github/badges/coverage.svg)
 [![size][npm-size-src]][npm-size-href]
 
 **Unified Device Detector**
@@ -175,5 +175,3 @@ Inspired by [@nuxtjs/device](https://github.com/nuxt-modules/device).
 [npm-size-href]: https://bundlephobia.com/package/undevice
 [npm-license-src]: https://npmx.dev/api/registry/badge/license/undevice
 [npm-license-href]: https://npmx.dev/package/undevice
-[codecov-src]: https://img.shields.io/codecov/c/github/teplostanski/undevice?style=flat&label=coverage&labelColor=0a0a0a
-[codecov-href]: https://codecov.io/gh/teplostanski/undevice
