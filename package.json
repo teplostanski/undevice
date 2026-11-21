@@ -99,7 +99,7 @@
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.6",
+    "@biomejs/biome": "2.6.8",
     "@shikijs/vitepress-twoslash": "^2.5.0",
     "@teplostanski/biome-config": "2.0.3",
     "@types/express": "^5.0.6",
