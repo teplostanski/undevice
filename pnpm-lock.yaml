@@ -216,7 +216,7 @@ importers:
         version: 9.1.7
       isbot:
         specifier: ^5.2.3
-        version: 5.2.3
+        version: 5.2.4
       localbadge:
         specifier: 0.1.0
         version: 0.1.0(@vitest/coverage-v8@5.1.0)(vitest@5.1.0)
@@ -2042,8 +2042,8 @@ packages:
   is-reference@1.2.1:
     resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==}
 
-  isbot@5.2.3:
-    resolution: {integrity: sha512-e8gGz3VzAuImtTMnB5PqNRRWGAswObTc+X+X5a8PttKT78VSSFec98w9ZwUoy6jJdlvJkVdLiN+WMgA8TewoZg==}
+  isbot@5.2.4:
+    resolution: {integrity: sha512-qFPSy82nnxEUrHdKpIQPVpYwsGJqL/+VGWYVYP5c8XMOyRRPDVb1C5ZMwmKs3nB4Evsw/ux0WqHBkf2UUawC1A==}
     engines: {node: '>=18'}
 
   jiti@1.21.7:
@@ -4958,7 +4958,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.10
 
-  isbot@5.2.3: {}
+  isbot@5.2.4: {}
 
   jiti@1.21.7: {}
 
