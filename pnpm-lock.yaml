@@ -201,7 +201,7 @@ importers:
         version: 5.1.0(vitest@5.1.0)
       crawler-user-agents:
         specifier: ^1.66.0
-        version: 1.67.0
+        version: 1.77.0
       express:
         specifier: ^5.3.0
         version: 5.3.0
@@ -1660,8 +1660,8 @@ packages:
     resolution: {integrity: sha512-vePst2VLTSqPglW7Q98VwFpGiGpOHTyXIo81MO5VyLecA5zMbZw/P/V1vmwD1jksa2iJpn/YkDrJ3XhTfzUyhQ==}
     engines: {node: '>=18'}
 
-  crawler-user-agents@1.67.0:
-    resolution: {integrity: sha512-P5/4oMIaeSqfnccEMkn1ILR86EWspHmn6wJ+LXfWRqblPvrUdoExfXxwWZ0/MqqCsgkaSgrqGzGkvTNjK9GirA==}
+  crawler-user-agents@1.77.0:
+    resolution: {integrity: sha512-XoHgf54LPD9x0oiiGVlvhCz6bD41bkkqtCTgQ5h1F0KRQRrM7314lU/X3fcMa1LYkC8g+OTbynsi10OF6UFy9w==}
 
   css-color-converter@2.0.0:
     resolution: {integrity: sha512-oLIG2soZz3wcC3aAl/7Us5RS8Hvvc6I8G8LniF/qfMmrm7fIKQ8RIDDRZeKyGL2SrWfNqYspuLShbnjBMVWm8g==}
@@ -4518,7 +4518,7 @@ snapshots:
 
   copy-anything@4.1.5: {}
 
-  crawler-user-agents@1.67.0: {}
+  crawler-user-agents@1.77.0: {}
 
   css-color-converter@2.0.0:
     dependencies:
